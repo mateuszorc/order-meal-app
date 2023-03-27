@@ -1,9 +1,12 @@
 package com.javaproject.eLaunchApp.models;
 
+import com.javaproject.eLaunchApp.validator.PeriodConstraint;
+
 import javax.annotation.Nullable;
 import javax.persistence.Embeddable;
 import java.time.LocalDateTime;
 
+@PeriodConstraint
 @Embeddable
 public class Period {
 

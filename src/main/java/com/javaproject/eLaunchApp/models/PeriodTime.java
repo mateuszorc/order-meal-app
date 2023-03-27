@@ -1,25 +1,28 @@
 package com.javaproject.eLaunchApp.models;
 
+import com.javaproject.eLaunchApp.validator.PeriodTimeConstraint;
+
 import javax.annotation.Nullable;
 import javax.persistence.Embeddable;
 import java.time.LocalTime;
 
+@PeriodTimeConstraint
 @Embeddable
 public class PeriodTime {
 
     @Nullable
-    private LocalTime bigin;
+    private LocalTime begin;
 
     @Nullable
     private LocalTime end;
 
     @Nullable
-    public LocalTime getBigin() {
-        return bigin;
+    public LocalTime getBegin() {
+        return begin;
     }
 
-    public void setBigin(@Nullable LocalTime bigin) {
-        this.bigin = bigin;
+    public void setBegin(@Nullable LocalTime bigin) {
+        this.begin = bigin;
     }
 
     @Nullable
