@@ -47,7 +47,8 @@ public class JPAConfiguration {
         entityManagerFactory.setDataSource(dataSource);
         entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter);
         entityManagerFactory.setPackagesToScan(
-                "com.javaproject.eLaunchApp.models"
+                "com.javaproject.eLaunchApp.models",
+                "com.javaproject.eLaunchApp.converter"
         );
         entityManagerFactory.setJpaPropertyMap(ImmutableMap.of(
                 AvailableSettings.DIALECT, "org.hibernate.dialect.MySQL8Dialect",
