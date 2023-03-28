@@ -38,7 +38,7 @@ public class Restaurant {
 
     @NotNull
     @OneToMany(mappedBy = "restaurant")
-    private List<Order> orders;
+    private List<Order> orderDTOS;
 
     @NotNull
     @OneToMany(mappedBy = "restaurants", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -101,11 +101,11 @@ public class Restaurant {
     }
 
     public List<Order> getOrders() {
-        return orders;
+        return orderDTOS;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setOrders(List<Order> orderDTOS) {
+        this.orderDTOS = orderDTOS;
     }
 
     public List<MenuItem> getMenuItems() {

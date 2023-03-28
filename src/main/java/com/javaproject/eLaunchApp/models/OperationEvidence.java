@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity
-public class OperatiomEvidence {
+public class OperationEvidence {
 
     @Id
     @GeneratedValue

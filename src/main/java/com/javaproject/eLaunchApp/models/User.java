@@ -13,6 +13,7 @@ public class User {
 
     @Id
     @GeneratedValue
+    @NotNull
     private Long id;
 
     @Column(unique = true)
@@ -33,11 +34,11 @@ public class User {
 
     @Nullable
     @OneToMany(mappedBy = "user")
-    private List<Order> orders;
+    private List<Order> orderDTOS;
 
     @NotNull
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OperatiomEvidence> operatiomEvidences;
+    private List<OperationEvidence> operationEvidences;
 
 
     @Nullable
@@ -90,19 +91,19 @@ public class User {
 
     @Nullable
     public List<Order> getOrders() {
-        return orders;
+        return orderDTOS;
     }
 
-    public void setOrders(@Nullable List<Order> orders) {
-        this.orders = orders;
+    public void setOrders(@Nullable List<Order> orderDTOS) {
+        this.orderDTOS = orderDTOS;
     }
 
-    public List<OperatiomEvidence> getOperatiomEvidences() {
-        return operatiomEvidences;
+    public List<OperationEvidence> getOperatiomEvidences() {
+        return operationEvidences;
     }
 
-    public void setOperatiomEvidences(List<OperatiomEvidence> operatiomEvidences) {
-        this.operatiomEvidences = operatiomEvidences;
+    public void setOperatiomEvidences(List<OperationEvidence> operationEvidences) {
+        this.operationEvidences = operationEvidences;
     }
 
     @Nullable

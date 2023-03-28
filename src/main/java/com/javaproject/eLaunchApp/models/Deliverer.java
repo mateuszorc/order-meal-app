@@ -11,15 +11,15 @@ import java.util.List;
 public class Deliverer extends Employee{
 
     @Nullable
-    @OneToMany
-    private List<Order> orders;
+    @OneToMany(mappedBy = "deliverer")
+    private List<Order> orderDTOS;
 
     @Nullable
     public List<Order> getOrders() {
-        return orders;
+        return orderDTOS;
     }
 
-    public void setOrders(@Nullable List<Order> orders) {
-        this.orders = orders;
+    public void setOrders(@Nullable List<Order> orderDTOS) {
+        this.orderDTOS = orderDTOS;
     }
 }
