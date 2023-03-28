@@ -1,5 +1,7 @@
 package com.javaproject.eLaunchApp.DTO;
 
+import net.karneim.pojobuilder.GeneratePojoBuilder;
+
 import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -7,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
 
-
+@GeneratePojoBuilder
 public class DishDTO {
 
     @NotNull

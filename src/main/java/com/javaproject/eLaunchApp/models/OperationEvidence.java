@@ -1,6 +1,7 @@
 package com.javaproject.eLaunchApp.models;
 
 import com.javaproject.eLaunchApp.models.enums.EvidenceType;
+import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity
+@GeneratePojoBuilder
 public class OperationEvidence {
 
     @Id

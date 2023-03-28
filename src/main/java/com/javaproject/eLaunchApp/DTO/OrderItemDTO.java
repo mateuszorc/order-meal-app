@@ -1,11 +1,13 @@
 package com.javaproject.eLaunchApp.DTO;
 
+import net.karneim.pojobuilder.GeneratePojoBuilder;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
-
+@GeneratePojoBuilder
 public class OrderItemDTO {
 
     @NotNull

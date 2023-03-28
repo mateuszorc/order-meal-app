@@ -1,11 +1,13 @@
 package com.javaproject.eLaunchApp.DTO;
 
+import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 import javax.annotation.Nullable;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 
 @Embeddable
+@GeneratePojoBuilder
 public class AddressDTO {
 
     @NotNull

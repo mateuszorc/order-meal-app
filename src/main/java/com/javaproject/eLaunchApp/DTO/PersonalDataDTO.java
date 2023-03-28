@@ -1,11 +1,13 @@
 package com.javaproject.eLaunchApp.DTO;
 
 import com.javaproject.eLaunchApp.models.enums.Sex;
+import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 import javax.annotation.Nullable;
 import javax.persistence.Embeddable;
 
 @Embeddable
+@GeneratePojoBuilder
 public class PersonalDataDTO {
 
     @Nullable

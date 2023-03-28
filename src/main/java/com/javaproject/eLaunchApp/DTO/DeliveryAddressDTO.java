@@ -1,12 +1,13 @@
 package com.javaproject.eLaunchApp.DTO;
 
 import com.javaproject.eLaunchApp.models.User;
+import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
-
+@GeneratePojoBuilder
 public class DeliveryAddressDTO {
 
     @NotNull

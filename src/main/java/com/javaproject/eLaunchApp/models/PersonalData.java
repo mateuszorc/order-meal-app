@@ -1,6 +1,7 @@
 package com.javaproject.eLaunchApp.models;
 
 import com.javaproject.eLaunchApp.models.enums.Sex;
+import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 import javax.annotation.Nullable;
 import javax.persistence.Embeddable;
@@ -8,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @Embeddable
+@GeneratePojoBuilder
 public class PersonalData {
 
     @Nullable

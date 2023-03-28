@@ -1,6 +1,7 @@
 package com.javaproject.eLaunchApp.models;
 
 import com.javaproject.eLaunchApp.models.enums.DiscountUnit;
+import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@GeneratePojoBuilder
 public class DiscountCode {
 
     @Id

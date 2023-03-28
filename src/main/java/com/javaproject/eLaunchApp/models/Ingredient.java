@@ -1,5 +1,7 @@
 package com.javaproject.eLaunchApp.models;
 
+import net.karneim.pojobuilder.GeneratePojoBuilder;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
+@GeneratePojoBuilder
 public class Ingredient {
 
     @Id

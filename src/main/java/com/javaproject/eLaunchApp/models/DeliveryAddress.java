@@ -1,11 +1,14 @@
 package com.javaproject.eLaunchApp.models;
 
+import net.karneim.pojobuilder.GeneratePojoBuilder;
+
 import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
+@GeneratePojoBuilder
 public class DeliveryAddress {
 
     @Id

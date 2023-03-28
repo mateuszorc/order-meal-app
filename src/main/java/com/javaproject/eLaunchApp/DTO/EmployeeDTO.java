@@ -1,11 +1,12 @@
 package com.javaproject.eLaunchApp.DTO;
 
 import com.javaproject.eLaunchApp.models.enums.Archive;
+import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
-
+@GeneratePojoBuilder
 public class EmployeeDTO {
 
     @NotNull

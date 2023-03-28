@@ -1,6 +1,7 @@
 package com.javaproject.eLaunchApp.models;
 
 import com.javaproject.eLaunchApp.validator.PeriodConstraint;
+import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 import javax.annotation.Nullable;
 import javax.persistence.Embeddable;
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 
 @PeriodConstraint
 @Embeddable
+@GeneratePojoBuilder
 public class Period {
 
     @Nullable

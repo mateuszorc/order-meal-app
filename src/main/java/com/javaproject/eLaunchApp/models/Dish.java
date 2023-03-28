@@ -1,5 +1,7 @@
 package com.javaproject.eLaunchApp.models;
 
+import net.karneim.pojobuilder.GeneratePojoBuilder;
+
 import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -8,6 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@GeneratePojoBuilder
 public class Dish {
 
     @Id

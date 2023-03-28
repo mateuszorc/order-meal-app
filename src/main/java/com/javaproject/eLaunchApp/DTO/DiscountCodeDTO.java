@@ -2,6 +2,7 @@ package com.javaproject.eLaunchApp.DTO;
 
 import com.javaproject.eLaunchApp.models.User;
 import com.javaproject.eLaunchApp.models.enums.DiscountUnit;
+import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
-
+@GeneratePojoBuilder
 public class DiscountCodeDTO {
 
     @NotNull

@@ -1,10 +1,13 @@
 package com.javaproject.eLaunchApp.DTO;
 
+import net.karneim.pojobuilder.GeneratePojoBuilder;
+
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
 
 @Embeddable
+@GeneratePojoBuilder
 public class OrderStatusDTO {
 
     @NotNull

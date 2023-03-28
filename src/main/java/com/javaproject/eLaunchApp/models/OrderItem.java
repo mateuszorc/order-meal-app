@@ -1,11 +1,14 @@
 package com.javaproject.eLaunchApp.models;
 
+import net.karneim.pojobuilder.GeneratePojoBuilder;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
+@GeneratePojoBuilder
 public class OrderItem {
 
     @Id

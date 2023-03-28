@@ -1,11 +1,14 @@
 package com.javaproject.eLaunchApp.models;
 
+import net.karneim.pojobuilder.GeneratePojoBuilder;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Embeddable
+@GeneratePojoBuilder
 public class LoginData {
 
     @Column(unique = true)

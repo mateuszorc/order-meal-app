@@ -1,6 +1,7 @@
 package com.javaproject.eLaunchApp.models;
 
 import com.javaproject.eLaunchApp.models.enums.Archive;
+import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@GeneratePojoBuilder
 public class Restaurant {
 
     @Id

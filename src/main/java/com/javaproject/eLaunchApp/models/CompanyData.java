@@ -1,11 +1,14 @@
 package com.javaproject.eLaunchApp.models;
 
+import net.karneim.pojobuilder.GeneratePojoBuilder;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.validation.constraints.NotNull;
 
 @Embeddable
+@GeneratePojoBuilder
 public class CompanyData {
 
     @NotNull

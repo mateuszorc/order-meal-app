@@ -2,6 +2,7 @@ package com.javaproject.eLaunchApp.DTO;
 
 import com.javaproject.eLaunchApp.models.User;
 import com.javaproject.eLaunchApp.models.enums.EvidenceType;
+import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
@@ -9,7 +10,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.Instant;
-
+@GeneratePojoBuilder
 public class OperationEvidenceDTO {
 
     @NotNull

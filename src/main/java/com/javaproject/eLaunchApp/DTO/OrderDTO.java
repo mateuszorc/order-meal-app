@@ -1,6 +1,7 @@
 package com.javaproject.eLaunchApp.DTO;
 
 import com.javaproject.eLaunchApp.models.User;
+import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
-
+@GeneratePojoBuilder
 public class OrderDTO {
 
     @NotNull

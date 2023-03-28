@@ -1,11 +1,14 @@
 package com.javaproject.eLaunchApp.DTO;
 
-import javax.persistence.Column;
+
+import net.karneim.pojobuilder.GeneratePojoBuilder;
+
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.validation.constraints.NotNull;
 
 @Embeddable
+@GeneratePojoBuilder
 public class CompanyDataDTO {
 
     @NotNull

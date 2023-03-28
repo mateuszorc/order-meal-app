@@ -1,11 +1,14 @@
 package com.javaproject.eLaunchApp.DTO;
 
+import net.karneim.pojobuilder.GeneratePojoBuilder;
+
 import javax.annotation.Nullable;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.List;
 
+@GeneratePojoBuilder
 public class DelivererDTO extends EmployeeDTO {
 
     @Nullable

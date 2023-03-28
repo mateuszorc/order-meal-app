@@ -1,6 +1,7 @@
 package com.javaproject.eLaunchApp.DTO;
 
 import com.javaproject.eLaunchApp.models.enums.Archive;
+import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -9,7 +10,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.UUID;
 
-
+@GeneratePojoBuilder
 public class RestaurantDTO {
 
     @NotNull
