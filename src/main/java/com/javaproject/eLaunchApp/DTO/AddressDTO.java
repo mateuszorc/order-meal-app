@@ -20,6 +20,12 @@ public class AddressDTO {
     private String city;
     @Nullable
     private String borough;
+    @NotNull
+    private String postcode;
+    @Nullable
+    private String county;
+    @Nullable
+    private String state;
 
     public String getStreet() {
         return street;
@@ -80,10 +86,12 @@ public class AddressDTO {
         this.state = state;
     }
 
-    @Nullable
-    private String county;
-    @Nullable
-    private String state;
 
+    public String getPostcode() {
+        return postcode;
+    }
 
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
 }

@@ -100,11 +100,11 @@ public class User {
         this.orderDTOS = orderDTOS;
     }
 
-    public List<OperationEvidence> getOperatiomEvidences() {
+    public List<OperationEvidence> getOperationEvidences() {
         return operationEvidences;
     }
 
-    public void setOperatiomEvidences(List<OperationEvidence> operationEvidences) {
+    public void setOperationEvidences(List<OperationEvidence> operationEvidences) {
         this.operationEvidences = operationEvidences;
     }
 

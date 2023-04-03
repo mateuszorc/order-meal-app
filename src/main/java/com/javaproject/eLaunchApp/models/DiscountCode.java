@@ -42,6 +42,10 @@ public class DiscountCode {
     @ManyToMany
     private List<User> users;
 
+    @NotNull
+    @Embedded
+    private Period period;
+
     @Nullable
     @ManyToMany
     private List<Restaurant> restaurants;
@@ -93,6 +97,14 @@ public class DiscountCode {
 
     public void setUsers(@Nullable List<User> users) {
         this.users = users;
+    }
+
+    public Period getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Period period) {
+        this.period = period;
     }
 
     @Nullable

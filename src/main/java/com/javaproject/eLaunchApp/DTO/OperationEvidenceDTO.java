@@ -26,7 +26,7 @@ public class OperationEvidenceDTO {
     private BigDecimal amount;
 
     @NotNull
-    private User user;
+    private UserDTO user;
 
     public Instant getDate() {
         return date;
@@ -52,11 +52,11 @@ public class OperationEvidenceDTO {
         this.amount = amount;
     }
 
-    public User getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 }

@@ -1,12 +1,10 @@
 package com.javaproject.eLaunchApp.DTO;
 
-import com.javaproject.eLaunchApp.models.User;
 import net.karneim.pojobuilder.GeneratePojoBuilder;
-
 import javax.annotation.Nullable;
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
+
 @GeneratePojoBuilder
 public class DeliveryAddressDTO {
 
@@ -26,13 +24,22 @@ public class DeliveryAddressDTO {
     private String localNumber;
 
     @NotNull
+    private String postcode;
+
+    @NotNull
     private String city;
 
     @Nullable
     private String borough;
 
+    @Nullable
+    private String county;
+
+    @Nullable
+    private String state;
+
     @NotNull
-    private User user;
+    private UserDTO user;
 
     public UUID getUuid() {
         return uuid;
@@ -75,6 +82,14 @@ public class DeliveryAddressDTO {
         this.localNumber = localNumber;
     }
 
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
+
     public String getCity() {
         return city;
     }
@@ -92,11 +107,29 @@ public class DeliveryAddressDTO {
         this.borough = borough;
     }
 
-    public User getUser() {
+    @Nullable
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(@Nullable String county) {
+        this.county = county;
+    }
+
+    @Nullable
+    public String getState() {
+        return state;
+    }
+
+    public void setState(@Nullable String state) {
+        this.state = state;
+    }
+
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 }

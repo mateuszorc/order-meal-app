@@ -21,6 +21,12 @@ public class Address {
     private String city;
     @Nullable
     private String borough;
+    @Nullable
+    private String county;
+    @Nullable
+    private String state;
+    @NotNull
+    private String postcode;
 
     public String getStreet() {
         return street;
@@ -81,10 +87,11 @@ public class Address {
         this.state = state;
     }
 
-    @Nullable
-    private String county;
-    @Nullable
-    private String state;
+    public String getPostcode() {
+        return postcode;
+    }
 
-
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
 }

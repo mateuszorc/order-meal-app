@@ -37,9 +37,18 @@ public class DeliveryAddress {
     @Nullable
     private String borough;
 
+    @Nullable
+    private String county;
+
+    @Nullable
+    private String state;
+
     @NotNull
     @ManyToOne
     private User user;
+
+    @NotNull
+    private String postcode;
 
     public Long getId() {
         return id;
@@ -113,5 +122,31 @@ public class DeliveryAddress {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
+
+    @Nullable
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(@Nullable String county) {
+        this.county = county;
+    }
+
+    @Nullable
+    public String getState() {
+        return state;
+    }
+
+    public void setState(@Nullable String state) {
+        this.state = state;
     }
 }

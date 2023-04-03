@@ -30,6 +30,9 @@ public class OrderDTO {
     @Nullable
     private DiscountCodeDTO discountCodeDTO;
 
+    @NotNull
+    private DeliveryAddressDTO deliveryAddressDTO;
+
     @Digits(integer = 10, fraction = 2)
     @Min(0)
     @NotNull
@@ -46,7 +49,7 @@ public class OrderDTO {
     private List<OrderItemDTO> orderItems;
 
     @NotNull
-    private User user;
+    private UserDTO user;
 
     @NotNull
     private DelivererDTO delivererDTO;
@@ -79,12 +82,20 @@ public class OrderDTO {
     }
 
     @Nullable
-    public DiscountCodeDTO getDiscountCode() {
+    public DiscountCodeDTO getDiscountCodeDTO() {
         return discountCodeDTO;
     }
 
-    public void setDiscountCode(@Nullable DiscountCodeDTO discountCodeDTO) {
+    public void setDiscountCodeDTO(@Nullable DiscountCodeDTO discountCodeDTO) {
         this.discountCodeDTO = discountCodeDTO;
+    }
+
+    public DeliveryAddressDTO getDeliveryAddressDTO() {
+        return deliveryAddressDTO;
+    }
+
+    public void setDeliveryAddressDTO(DeliveryAddressDTO deliveryAddressDTO) {
+        this.deliveryAddressDTO = deliveryAddressDTO;
     }
 
     public BigDecimal getAmountToPayBrutto() {
@@ -104,11 +115,11 @@ public class OrderDTO {
         this.note = note;
     }
 
-    public OrderStatusDTO getOrderStatus() {
+    public OrderStatusDTO getOrderStatusDTO() {
         return orderStatusDTO;
     }
 
-    public void setOrderStatus(OrderStatusDTO orderStatusDTO) {
+    public void setOrderStatusDTO(OrderStatusDTO orderStatusDTO) {
         this.orderStatusDTO = orderStatusDTO;
     }
 
@@ -120,27 +131,27 @@ public class OrderDTO {
         this.orderItems = orderItems;
     }
 
-    public User getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 
-    public DelivererDTO getDeliverer() {
+    public DelivererDTO getDelivererDTO() {
         return delivererDTO;
     }
 
-    public void setDeliverer(DelivererDTO delivererDTO) {
+    public void setDelivererDTO(DelivererDTO delivererDTO) {
         this.delivererDTO = delivererDTO;
     }
 
-    public RestaurantDTO getRestaurant() {
+    public RestaurantDTO getRestaurantDTO() {
         return restaurantDTO;
     }
 
-    public void setRestaurant(RestaurantDTO restaurantDTO) {
+    public void setRestaurantDTO(RestaurantDTO restaurantDTO) {
         this.restaurantDTO = restaurantDTO;
     }
 }

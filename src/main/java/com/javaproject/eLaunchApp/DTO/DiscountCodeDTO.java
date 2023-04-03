@@ -1,6 +1,6 @@
 package com.javaproject.eLaunchApp.DTO;
 
-import com.javaproject.eLaunchApp.models.User;
+import com.javaproject.eLaunchApp.models.Period;
 import com.javaproject.eLaunchApp.models.enums.DiscountUnit;
 import net.karneim.pojobuilder.GeneratePojoBuilder;
 
@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
+
 @GeneratePojoBuilder
 public class DiscountCodeDTO {
 
@@ -32,7 +33,10 @@ public class DiscountCodeDTO {
     private DiscountUnit discountUnit;
 
     @Nullable
-    private List<User> users;
+    private List<UserDTO> users;
+
+    @NotNull
+    private Period period;
 
     @Nullable
     private List<RestaurantDTO> restaurantDTOS;
@@ -70,20 +74,28 @@ public class DiscountCodeDTO {
     }
 
     @Nullable
-    public List<User> getUsers() {
+    public List<UserDTO> getUsers() {
         return users;
     }
 
-    public void setUsers(@Nullable List<User> users) {
+    public void setUsers(@Nullable List<UserDTO> users) {
         this.users = users;
     }
 
+    public Period getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Period period) {
+        this.period = period;
+    }
+
     @Nullable
-    public List<RestaurantDTO> getRestaurants() {
+    public List<RestaurantDTO> getRestaurantDTOS() {
         return restaurantDTOS;
     }
 
-    public void setRestaurants(@Nullable List<RestaurantDTO> restaurantDTOS) {
+    public void setRestaurantDTOS(@Nullable List<RestaurantDTO> restaurantDTOS) {
         this.restaurantDTOS = restaurantDTOS;
     }
 }

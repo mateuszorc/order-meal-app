@@ -37,6 +37,10 @@ public class Order {
     @ManyToOne
     private DiscountCode discountCode;
 
+    @NotNull
+    @OneToOne
+    private DeliveryAddress deliveryAddress;
+
     @Column(scale = 2, precision = 12)
     @Digits(integer = 10, fraction = 2)
     @Min(0)
@@ -106,6 +110,14 @@ public class Order {
 
     public void setDiscountCode(@Nullable DiscountCode discountCode) {
         this.discountCode = discountCode;
+    }
+
+    public DeliveryAddress getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public void setDeliveryAddress(DeliveryAddress deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
     }
 
     public BigDecimal getAmountToPayBrutto() {
