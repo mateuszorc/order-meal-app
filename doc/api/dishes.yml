@@ -1,0 +1,133 @@
+openapi: 3.0.1
+info:
+  title: API / Dishes
+  version: 1.0.0-oas3
+servers:
+  - url: http://localhost/api
+tags:
+  - name: dishes
+    description: ""
+paths:
+  /dishes:
+    get:
+      tags:
+        - dishes
+      summary: Gets list of dishes
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dish'
+  /dishes/{dish-uuid}:
+    get:
+      tags:
+        - dishes
+      summary: Gets dish by it's uuid
+      parameters:
+        - name: dish-uuid
+          in: path
+          description: UUID of the dish we want to get
+          required: true
+          schema:
+            type: string
+            format: UUID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dish'
+        '404':
+          description: Dish not found
+          content:
+            {}
+
+    put:
+      tags:
+        - dishes
+      summary: Adds or updates a dish
+      parameters:
+        - name: dish-uuid
+          in: path
+          description: UUID of the dish we want to update
+          required: true
+          schema:
+            type: string
+            format: UUID
+      requestBody:
+        description: Dish to add or update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dish'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dish'
+        '400':
+          description: Validation error
+          content:
+            { }
+
+    delete:
+      tags:
+        - dishes
+      summary: Deletes a dish
+      parameters:
+        - name: dish-uuid
+          in: path
+          description: UUID of the dish we want to delete
+          required: true
+          schema:
+            type: string
+            format: UUID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dish'
+        '404':
+          description: Dish not found
+          content:
+            { }
+
+components:
+  schemas:
+    Dish:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: UUID
+        quantity:
+          type: integer
+          minimum: 0
+        product:
+          $ref: '#/components/schemas/Product'
+        menuItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuItem'
+          readOnly: true
+    Product:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: UUID
+    MenuItem:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: UUID
