@@ -1,18 +1,18 @@
 openapi: 3.0.1
 info:
-  title: API / Dishes
+  title: API / Discount codes
   version: 1.0.0-oas3
 servers:
   - url: http://localhost/api
 tags:
-  - name: dishes
+  - name: discount codes
     description: ''
 paths:
-  /dishes:
+  /discount-codes:
     get:
       tags:
-        - dishes
-      summary: Pobiera listę dań
+        - discount codes
+      summary: Pobiera listę kodów rabatowych
       responses:
         '200':
           description: OK
@@ -21,16 +21,16 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Dish'
-  /dishes/{dish-uuid}:
+                  $ref: '#/components/schemas/DiscountCode'
+  /discount-codes/{discount-code-uuid}:
     get:
       tags:
-        - dishes
-      summary: Pobiera danie
+        - discount codes
+      summary: Pobiera kod rabatowy
       parameters:
-        - name: dish-uuid
+        - name: discount-code-uuid
           in: path
-          description: UUID pobieranego dania
+          description: UUID pobieranego kodu rabatowego
           required: true
           schema:
             type: string
@@ -41,46 +41,44 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Dish'
+                $ref: '#/components/schemas/DiscountCode'
         '404':
-          description: Not found
+          description: Nie istnieje
           content: {}
     put:
       tags:
-        - dishes
-      summary: Dodawanie lub nadpisywanie dania
+        - discount codes
+      summary: Nadpisuje kod rabatowy
       parameters:
-        - name: dish-uuid
+        - name: discount-code-uuid
           in: path
-          description: UUID pobieranego dania
+          description: UUID pobieranego kodu rabatowego
           required: true
           schema:
             type: string
             format: UUID
       requestBody:
-        description: Uaktualniane lub wstwiane danie
+        description: Uaktualniany lub wstawiany kod rabatowy
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Dish'
+              $ref: '#/components/schemas/DiscountCode'
+        required: true
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Dish'
+          content: {}
         '400':
-          description: Validation error
+          description: Błąd walidacji
           content: {}
     delete:
       tags:
-        - dishes
-      summary: Usuwa danie
+        - discount codes
+      summary: Usuwa kod rabatowy
       parameters:
-        - name: dish-uuid
+        - name: discount-code-uuid
           in: path
-          description: UUID pobieranego dania
+          description: UUID usuwanego kodu rabatowego
           required: true
           schema:
             type: string
@@ -88,32 +86,35 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Dish'
-        '404':
-          description: Not found
-          content: { }
+          content: {}
 components:
   schemas:
-    Dish:
+    DiscountCode:
       type: object
       properties:
         uuid:
           type: string
           format: UUID
-        quantity:
-          type: integer
-          minimum: 0
-        product:
-          $ref: '#/components/schemas/Product'
+        code:
+          type: string
+        discount:
+          type: string
+          format: Decimal
+        discountUnit:
+          type: string
+          enum: ["PERCENT", "PLN"]
+        period:
+          type: string
+          format: Period
         menuItems:
           type: array
           items:
             $ref: '#/components/schemas/MenuItem'
-          readOnly: true
-    Product:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    User:
       type: object
       properties:
         uuid:

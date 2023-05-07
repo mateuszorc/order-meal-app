@@ -1,0 +1,137 @@
+openapi: 3.0.1
+info:
+  title: API / Dishes
+  version: 1.0.0-oas3
+servers:
+  - url: http://localhost/api
+tags:
+  - name: delivery-addresses
+    description: ""
+paths:
+  /delivery-addresses:
+    get:
+      tags:
+        - delivery-addresses
+      summary: Gets list of delivery addresses
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DeliveryAddresses'
+  /delivery-addresses/{delivery-address-uuid}:
+    get:
+      tags:
+        - delivery-addresses
+      summary: Gets dish by it's uuid
+      parameters:
+        - name: delivery-address-uuid
+          in: path
+          description: UUID of the delivery-address we want to get
+          required: true
+          schema:
+            type: string
+            format: UUID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeliveryAddresses'
+        '404':
+          description: delivery-address not found
+          content:
+            {}
+
+    put:
+      tags:
+        - delivery-addresses
+      summary: Adds or updates a delivery-addresses
+      parameters:
+        - name: delivery-address-uuid
+          in: path
+          description: UUID of the delivery-addresses we want to update
+          required: true
+          schema:
+            type: string
+            format: UUID
+      requestBody:
+        description: delivery-addresses to add or update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeliveryAddresses'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeliveryAddresses'
+        '400':
+          description: Validation error
+          content:
+            { }
+
+    delete:
+      tags:
+        - delivery-addresses
+      summary: Deletes a delivery-address
+      parameters:
+        - name: delivery-address-uuid
+          in: path
+          description: UUID of the delivery-address we want to delete
+          required: true
+          schema:
+            type: string
+            format: UUID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeliveryAddresses'
+        '404':
+          description: delivery-address not found
+          content:
+            { }
+
+components:
+  schemas:
+    DeliveryAddresses:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: UUID
+        description:
+          type: string
+        street:
+          type: string
+        streetNumber:
+          type: string
+        localNumber:
+          type: string
+        postcode:
+          type: string
+        city:
+          type: string
+        borough:
+          type: string
+        county:
+          type: string
+        state:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+    User:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: UUID

@@ -1,18 +1,18 @@
 openapi: 3.0.1
 info:
-  title: API / Dishes
+  title: API / Menu items
   version: 1.0.0-oas3
 servers:
   - url: http://localhost/api
 tags:
-  - name: dishes
+  - name: menu items
     description: ''
 paths:
-  /dishes:
+  /menu-items:
     get:
       tags:
-        - dishes
-      summary: Pobiera listę dań
+        - menu items
+      summary: Pobiera listę pozycji menu
       responses:
         '200':
           description: OK
@@ -21,16 +21,16 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Dish'
-  /dishes/{dish-uuid}:
+                  $ref: '#/components/schemas/MenuItem'
+  /menu-items/{menu-item-uuid}:
     get:
       tags:
-        - dishes
-      summary: Pobiera danie
+        - menu items
+      summary: Pobiera pozycję menu
       parameters:
-        - name: dish-uuid
+        - name: menu-item-uuid
           in: path
-          description: UUID pobieranego dania
+          description: UUID pobieranej pozycji menu
           required: true
           schema:
             type: string
@@ -41,46 +41,44 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Dish'
+                $ref: '#/components/schemas/MenuItem'
         '404':
-          description: Not found
+          description: Nie istnieje
           content: {}
     put:
       tags:
-        - dishes
-      summary: Dodawanie lub nadpisywanie dania
+        - menu items
+      summary: Nadpisuje pozycje menu
       parameters:
-        - name: dish-uuid
+        - name: menu-item-uuid
           in: path
-          description: UUID pobieranego dania
+          description: UUID pobieranej pozycji menu
           required: true
           schema:
             type: string
             format: UUID
       requestBody:
-        description: Uaktualniane lub wstwiane danie
+        description: Uaktualniana lub wstawiana pozycja menu
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Dish'
+              $ref: '#/components/schemas/MenuItem'
+        required: true
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Dish'
+          content: {}
         '400':
-          description: Validation error
+          description: Błąd walidacji
           content: {}
     delete:
       tags:
-        - dishes
-      summary: Usuwa danie
+        - menu items
+      summary: Usuwa pozycje menu
       parameters:
-        - name: dish-uuid
+        - name: menu-item-uuid
           in: path
-          description: UUID pobieranego dania
+          description: UUID usuwanej pozycji menu
           required: true
           schema:
             type: string
@@ -88,38 +86,42 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Dish'
-        '404':
-          description: Not found
-          content: { }
+          content: {}
 components:
   schemas:
-    Dish:
+    MenuItem:
       type: object
       properties:
         uuid:
           type: string
           format: UUID
-        quantity:
-          type: integer
+        name:
+          type: string
+        nettoPrice:
+          type: string
+          format: Decimal
           minimum: 0
-        product:
-          $ref: '#/components/schemas/Product'
-        menuItems:
+        vatTax:
+          type: string
+          enum: ["_0", "_5", "_8", "_23"]
+        bruttoPrice:
+          type: string
+          format: Decimal
+          minimum: 0
+        restaurant:
+          $ref: '#/components/schemas/Restaurant'
+        dishes:
           type: array
           items:
-            $ref: '#/components/schemas/MenuItem'
+            $ref: '#/components/schemas/Dish'
           readOnly: true
-    Product:
+    Restaurant:
       type: object
       properties:
         uuid:
           type: string
           format: UUID
-    MenuItem:
+    Dish:
       type: object
       properties:
         uuid:

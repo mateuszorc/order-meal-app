@@ -1,0 +1,42 @@
+DELIVERY_ADDRESS
+GET /delivery-addresses/ - address list
+GET /delivery-addresses/uuid - particular address
+PUT /delivery-addresses/uuid - add/update an address
+DELETE /delivery-addresses/uuid - delete particular address
+
+INGREDIENTS
+GET /ingredients/ - ingrediennts list
+GET /ingredients/uuid - get particular ingredients
+POST /ingredients/ - add list of ingredients to DB -> takes List<Ingredient>
+PUT /ingredients/uuid - add/update an ingredient
+DELETE /ingredients/uuid - delete particular ingrediennt
+
+
+OPEN_TIMES
+GET /open-times/ - open-times list
+GET /open-times/uuid - get particular open-time
+POST /open-times/ - add list of open-times to DB -> takes List<OpenTime>
+PUT /open-times/uuid - add/update an open-time
+DELETE /open-times/uuid - delete particular open-time
+
+
+ORDERS
+GET /orders/ - orders list
+Get /orders/(params = {"user"}) - list of orders for particular client
+Get /orders/(params = {"deliverer"}) - list of orders for particular deliverer
+GET /orders/uuid - get particular order
+PUT /orders/uuid - add/update an order
+DELETE /orders/uuid - delete particular order
+PATCH /orders/uuid/paid - set the order to 'paid' status
+PATCH /orders/uuid/gived-out - set the order to 'gived-out' status
+PATCH /orders/uuid/delivered - set the order to 'delivered' status
+
+USERS
+GET /users/ - users list
+GET /users/uuid - get particular user
+POST /users/uuid/new-operation (User + Singleton list with operation register) - adds new operation
+PUT /users/uuid - add/update an user
+DELETE /users/uuid - delete particular user
+GET /users/uuid/delivery-addresses - get all user's delivery addresses
+
+
