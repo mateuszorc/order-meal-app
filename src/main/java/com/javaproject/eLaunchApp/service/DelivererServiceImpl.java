@@ -1,4 +1,7 @@
 package com.javaproject.eLaunchApp.service;
 
-public class DelivererServiceImpl implements DelivererService{
+import org.springframework.stereotype.Service;
+
+@Service
+public class DelivererServiceImpl implements DelivererService {
 }
