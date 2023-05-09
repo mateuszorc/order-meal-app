@@ -4,6 +4,8 @@ import com.javaproject.eLaunchApp.DTO.DelivererDTO;
 import com.javaproject.eLaunchApp.DTO.OrderDTO;
 import com.javaproject.eLaunchApp.service.DelivererService;
 import com.javaproject.eLaunchApp.service.OrderService;
+import com.javaproject.eLaunchApp.service.UserService;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,9 @@ import java.util.UUID;
 public class OrderController {
 
     private final OrderService orderService;
+    private final DelivererService delivererService;
+    private final UserService userService;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @GetMapping
     public List<OrderDTO> get() {
