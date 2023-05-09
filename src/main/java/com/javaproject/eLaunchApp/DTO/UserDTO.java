@@ -1,5 +1,7 @@
 package com.javaproject.eLaunchApp.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.javaproject.eLaunchApp.models.enums.Archive;
 import net.karneim.pojobuilder.GeneratePojoBuilder;
 
@@ -10,28 +12,42 @@ import java.util.UUID;
 
 @GeneratePojoBuilder
 public class UserDTO {
+    public static class View{
+        public interface Id{}
+        public interface Basic extends Id {}
+        public interface Extended extends Basic {}
+    }
 
+
+    @JsonView(View.Id.class)
     @NotNull
     private UUID uuid;
 
+    @JsonView(View.Basic.class)
     @NotNull
     private PersonalDataDTO personalData;
 
+    @JsonView(View.Extended.class)
     @NotNull
     private List<DeliveryAddressDTO> addresses;
 
+    @JsonView(View.Extended.class)
     @NotNull
     private LoginDataDTO loginData;
 
+    @JsonIgnore
     @Nullable
     private List<OrderDTO> orderDTOS;
 
+    @JsonView(View.Extended.class)
     @NotNull
     private List<OperationEvidenceDTO> operationEvidences;
 
+    @JsonView(View.Extended.class)
     @Nullable
     private List<DiscountCodeDTO> discountCode;
 
+    @JsonView(View.Extended.class)
     @NotNull
     private Archive archive;
 

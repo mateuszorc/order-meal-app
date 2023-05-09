@@ -1,5 +1,6 @@
 package com.javaproject.eLaunchApp.DTO;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.javaproject.eLaunchApp.validator.PeriodConstraint;
 import net.karneim.pojobuilder.GeneratePojoBuilder;
 
@@ -11,10 +12,16 @@ import java.time.LocalDateTime;
 @Embeddable
 @GeneratePojoBuilder
 public class PeriodDTO {
+    public static class View{
+        public interface Basic{}
+    }
 
+
+    @JsonView(View.Basic.class)
     @Nullable
     private LocalDateTime begin;
 
+    @JsonView(View.Basic.class)
     @Nullable
     private LocalDateTime end;
 

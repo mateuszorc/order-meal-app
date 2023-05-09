@@ -1,5 +1,6 @@
 package com.javaproject.eLaunchApp.DTO;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 import javax.annotation.Nullable;
@@ -10,20 +11,40 @@ import javax.validation.constraints.NotNull;
 @GeneratePojoBuilder
 public class AddressDTO {
 
+    public static class View{
+        public interface Basic{}
+        public interface Extended extends Basic{}
+    }
+
+    @JsonView(View.Basic.class)
     @NotNull
     private String street;
+
+    @JsonView(View.Basic.class)
     @NotNull
     private String streetNumber;
+
+    @JsonView(View.Basic.class)
     @NotNull
     private String localNumber;
+
+    @JsonView(View.Basic.class)
     @NotNull
     private String city;
+
+    @JsonView(View.Extended.class)
     @Nullable
     private String borough;
+
+    @JsonView(View.Basic.class)
     @NotNull
     private String postcode;
+
+    @JsonView(View.Extended.class)
     @Nullable
     private String county;
+
+    @JsonView(View.Extended.class)
     @Nullable
     private String state;
 

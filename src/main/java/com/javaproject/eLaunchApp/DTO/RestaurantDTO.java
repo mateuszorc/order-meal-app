@@ -1,5 +1,7 @@
 package com.javaproject.eLaunchApp.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.javaproject.eLaunchApp.models.enums.Archive;
 import net.karneim.pojobuilder.GeneratePojoBuilder;
 
@@ -12,34 +14,49 @@ import java.util.UUID;
 
 @GeneratePojoBuilder
 public class RestaurantDTO {
+    public static class View{
+        public interface Id{}
+        public interface Basic extends Id {}
+        public interface Extended extends Basic {}
+    }
 
+
+    @JsonView(View.Id.class)
     @NotNull
     private UUID uuid;
 
+    @JsonView(View.Basic.class)
     @NotNull
     private String name;
 
+    @JsonView(View.Basic.class)
     @NotBlank
     @Embedded
     private LoginDataDTO loginDataDTO;
 
+    @JsonView(View.Extended.class)
     @NotBlank
     @Embedded
     private CompanyDataDTO companyDataDTO;
 
+    @JsonView(View.Extended.class)
     @NotNull
     @Size(max = 7)
     private List<OpenTimeDTO> openTimeDTOS;
 
+    @JsonView(View.Extended.class)
     @NotNull
     private List<OrderDTO> orderDTOS;
 
+    @JsonView(View.Extended.class)
     @NotNull
     private List<MenuItemDTO> menuItemDTOS;
 
+    @JsonIgnore
     @NotNull
     private List<DiscountCodeDTO> discountCodeDTOS;
 
+    @JsonView(View.Extended.class)
     @NotNull
     private Archive archive;
 

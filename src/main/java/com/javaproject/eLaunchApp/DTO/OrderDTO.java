@@ -1,5 +1,6 @@
 package com.javaproject.eLaunchApp.DTO;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.javaproject.eLaunchApp.models.User;
 import net.karneim.pojobuilder.GeneratePojoBuilder;
 
@@ -14,46 +15,63 @@ import java.util.List;
 import java.util.UUID;
 @GeneratePojoBuilder
 public class OrderDTO {
+    public static class View{
+        public interface Basic{}
+        public interface Extended extends Basic {}
+    }
 
+
+    @JsonView(View.Basic.class)
     @NotNull
     private UUID uuid;
 
+    @JsonView(View.Extended.class)
     @Digits(integer = 10, fraction = 2)
     @Min(0)
     @NotNull
     private BigDecimal nettoPrice;
 
+    @JsonView(View.Extended.class)
     @Digits(integer = 10, fraction = 2)
     @NotNull
     private BigDecimal bruttoPrice;
 
+    @JsonView(View.Extended.class)
     @Nullable
     private DiscountCodeDTO discountCodeDTO;
 
+    @JsonView(View.Extended.class)
     @NotNull
     private DeliveryAddressDTO deliveryAddressDTO;
 
+    @JsonView(View.Extended.class)
     @Digits(integer = 10, fraction = 2)
     @Min(0)
     @NotNull
     private BigDecimal amountToPayBrutto;
 
+    @JsonView(View.Extended.class)
     @Nullable
     private String note;
 
+    @JsonView(View.Basic.class)
     @Embedded
     private OrderStatusDTO orderStatusDTO;
 
+    @JsonView(View.Extended.class)
     @NotNull
     @Size(min = 1)
     private List<OrderItemDTO> orderItems;
 
+    @JsonView(View.Basic.class)
     @NotNull
     private UserDTO user;
 
+    @JsonView(View.Basic.class)
     @NotNull
     private DelivererDTO delivererDTO;
 
+    @JsonView(View.Basic.class)
     @NotNull
     private RestaurantDTO restaurantDTO;
 

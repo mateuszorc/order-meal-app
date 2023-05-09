@@ -1,5 +1,6 @@
 package com.javaproject.eLaunchApp.DTO;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 import javax.persistence.Embeddable;
@@ -9,16 +10,24 @@ import java.time.Instant;
 @Embeddable
 @GeneratePojoBuilder
 public class OrderStatusDTO {
+    public static class View{
+        public interface Basic{}
+    }
 
+
+    @JsonView(View.Basic.class)
     @NotNull
     private Instant orderTime;
 
+    @JsonView(View.Basic.class)
     @NotNull
     private Boolean isPaid;
 
+    @JsonView(View.Basic.class)
     @NotNull
     private Instant giveOutTime;
 
+    @JsonView(View.Basic.class)
     @NotNull
     private Instant deliveryTime;
 

@@ -1,5 +1,6 @@
 package com.javaproject.eLaunchApp.DTO;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.javaproject.eLaunchApp.models.Period;
 import com.javaproject.eLaunchApp.models.enums.DiscountUnit;
 import net.karneim.pojobuilder.GeneratePojoBuilder;
@@ -17,27 +18,39 @@ import java.util.UUID;
 @GeneratePojoBuilder
 public class DiscountCodeDTO {
 
+    public static class View{
+        public interface Basic{}
+        public interface Extended extends Basic{}
+    }
+
+    @JsonView(View.Basic.class)
     @NotNull
     private UUID uuid;
 
+    @JsonView(View.Basic.class)
     @NotBlank
     private String code;
 
+    @JsonView(View.Extended.class)
     @Column(scale = 2, precision = 12)
     @Digits(integer = 10, fraction = 2)
     @Min(0)
     @NotNull
     private BigDecimal discount;
 
+    @JsonView(View.Extended.class)
     @NotNull
     private DiscountUnit discountUnit;
 
+    @JsonView(View.Extended.class)
     @Nullable
     private List<UserDTO> users;
 
+    @JsonView(View.Basic.class)
     @NotNull
     private Period period;
 
+    @JsonView(View.Extended.class)
     @Nullable
     private List<RestaurantDTO> restaurantDTOS;
 

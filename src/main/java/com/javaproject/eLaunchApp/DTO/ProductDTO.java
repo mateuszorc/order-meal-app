@@ -1,5 +1,6 @@
 package com.javaproject.eLaunchApp.DTO;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 import javax.annotation.Nullable;
@@ -11,16 +12,25 @@ import java.util.UUID;
 
 @GeneratePojoBuilder
 public class ProductDTO {
+    public static class View{
+        public interface Basic{}
+        public interface Extended extends Basic {}
+    }
 
+
+    @JsonView(View.Basic.class)
     @NotNull
     private UUID uuid;
 
+    @JsonView(View.Basic.class)
     @NotBlank
     private String name;
 
+    @JsonView(View.Extended.class)
     @NotNull
     private List<IngredientDTO> ingredientDTOS;
 
+    @JsonView(View.Extended.class)
     @Nullable
     private DishDTO dishDTO;
 
