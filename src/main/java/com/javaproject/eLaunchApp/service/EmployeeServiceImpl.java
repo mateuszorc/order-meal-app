@@ -1,7 +1,9 @@
 package com.javaproject.eLaunchApp.service;
 
 import com.javaproject.eLaunchApp.DTO.DelivererDTO;
+import com.javaproject.eLaunchApp.DTO.EmployeeDTO;
 import com.javaproject.eLaunchApp.repository.DelivererRepo;
+import com.javaproject.eLaunchApp.repository.EmployeeRepo;
 import com.javaproject.eLaunchApp.repository.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,24 +13,23 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class DelivererServiceImpl implements DelivererService {
+public class EmployeeServiceImpl implements EmployeeService{
 
-    private final DelivererRepo delivererRepo;
-    private final OrderRepo orderRepo;
+    private final EmployeeRepo employeeRepo;
 
     @Autowired
-    public DelivererServiceImpl(DelivererRepo delivererRepo, OrderRepo orderRepo) {
-        this.delivererRepo = delivererRepo;
-        this.orderRepo = orderRepo;
+    public EmployeeServiceImpl(EmployeeRepo employeeRepo) {
+        this.employeeRepo = employeeRepo;
     }
 
+
     @Override
-    public List<DelivererDTO> getAll() {
+    public List<EmployeeDTO> getAll() {
         return null;
     }
 
     @Override
-    public void put(UUID uuid, DelivererDTO delivererDTO) {
+    public void put(UUID uuid, EmployeeDTO employeeDTO) {
 
     }
 
@@ -38,7 +39,7 @@ public class DelivererServiceImpl implements DelivererService {
     }
 
     @Override
-    public Optional<DelivererDTO> getByUuid(UUID uuid) {
+    public Optional<EmployeeDTO> getByUuid(UUID uuid) {
         return Optional.empty();
     }
 }
