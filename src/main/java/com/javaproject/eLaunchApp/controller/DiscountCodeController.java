@@ -29,7 +29,7 @@ public class DiscountCodeController {
 
     @Transactional
     @PutMapping("/{uuid}")
-    public  void put(@PathVariable UUID uuid, @RequestBody DiscountCodeDTO delivererDTO) {
+    public  void put(@PathVariable UUID uuid, @RequestBody DiscountCodeDTO discountCodeDTO) {
         return;
     }
 

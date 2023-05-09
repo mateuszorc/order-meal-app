@@ -1,9 +1,9 @@
 package com.javaproject.eLaunchApp.controller;
 
 import com.javaproject.eLaunchApp.DTO.DelivererDTO;
-import com.javaproject.eLaunchApp.DTO.DishDTO;
+import com.javaproject.eLaunchApp.DTO.EmployeeDTO;
 import com.javaproject.eLaunchApp.service.DelivererService;
-import com.javaproject.eLaunchApp.service.DishService;
+import com.javaproject.eLaunchApp.service.EmployeeService;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -12,24 +12,24 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(params = "/api/dishes", produces = MediaType.APPLICATION_JSON_VALUE)
-public class DishController {
+@RequestMapping(params = "/api/demployees", produces = MediaType.APPLICATION_JSON_VALUE)
+public class EmployeeController {
 
-    private final DishService dishService;
+    private final EmployeeService employeeService;
 
     @GetMapping
-    public List<DishDTO> get() {
+    public List<EmployeeDTO> get() {
         return null;
     }
 
     @GetMapping("/{uuid}")
-    public DishDTO get(@PathVariable UUID uuid) {
+    public EmployeeDTO get(@PathVariable UUID uuid) {
         return null;
     }
 
     @Transactional
     @PutMapping("/{uuid}")
-    public  void put(@PathVariable UUID uuid, @RequestBody DishDTO dishDTO) {
+    public  void put(@PathVariable UUID uuid, @RequestBody EmployeeDTO employeeDTO) {
         return;
     }
 
