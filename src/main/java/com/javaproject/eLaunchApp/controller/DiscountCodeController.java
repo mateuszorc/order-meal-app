@@ -4,6 +4,7 @@ import com.javaproject.eLaunchApp.DTO.DelivererDTO;
 import com.javaproject.eLaunchApp.DTO.DiscountCodeDTO;
 import com.javaproject.eLaunchApp.service.DelivererService;
 import com.javaproject.eLaunchApp.service.DiscountCodeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,11 @@ import java.util.UUID;
 public class DiscountCodeController {
 
     private final DiscountCodeService discountCodeService;
+
+    @Autowired
+    public DiscountCodeController(DiscountCodeService discountCodeService) {
+        this.discountCodeService = discountCodeService;
+    }
 
     @GetMapping
     public List<DiscountCodeDTO> get() {

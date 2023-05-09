@@ -4,6 +4,7 @@ import com.javaproject.eLaunchApp.DTO.DelivererDTO;
 import com.javaproject.eLaunchApp.DTO.MenuItemDTO;
 import com.javaproject.eLaunchApp.service.DelivererService;
 import com.javaproject.eLaunchApp.service.MenuItemService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,11 @@ import java.util.UUID;
 public class MenuItemController {
 
     private final MenuItemService menuItemService;
+
+    @Autowired
+    public MenuItemController(MenuItemService menuItemService) {
+        this.menuItemService = menuItemService;
+    }
 
     @GetMapping
     public List<MenuItemDTO> get() {

@@ -4,6 +4,7 @@ import com.javaproject.eLaunchApp.DTO.DelivererDTO;
 import com.javaproject.eLaunchApp.DTO.UserDTO;
 import com.javaproject.eLaunchApp.service.DelivererService;
 import com.javaproject.eLaunchApp.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,11 @@ public class UserController {
     private final UserService userService;
     private final ApplicationEventPublisher applicationEventPublisher;
 
+    @Autowired
+    public UserController(UserService userService, ApplicationEventPublisher applicationEventPublisher) {
+        this.userService = userService;
+        this.applicationEventPublisher = applicationEventPublisher;
+    }
 
     @GetMapping
     public List<UserDTO> get() {

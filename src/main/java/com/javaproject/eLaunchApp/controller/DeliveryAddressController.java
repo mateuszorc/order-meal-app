@@ -4,6 +4,7 @@ import com.javaproject.eLaunchApp.DTO.DelivererDTO;
 import com.javaproject.eLaunchApp.DTO.DeliveryAddressDTO;
 import com.javaproject.eLaunchApp.service.DelivererService;
 import com.javaproject.eLaunchApp.service.DeliveryAddressService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,11 @@ import java.util.UUID;
 public class DeliveryAddressController {
 
     private final DeliveryAddressService deliveryAddressService;
+
+    @Autowired
+    public DeliveryAddressController(DeliveryAddressService deliveryAddressService) {
+        this.deliveryAddressService = deliveryAddressService;
+    }
 
     @GetMapping
     public List<DeliveryAddressDTO> get() {

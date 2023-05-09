@@ -5,6 +5,7 @@ import com.javaproject.eLaunchApp.DTO.OrderDTO;
 import com.javaproject.eLaunchApp.service.DelivererService;
 import com.javaproject.eLaunchApp.service.OrderService;
 import com.javaproject.eLaunchApp.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,15 @@ public class OrderController {
     private final DelivererService delivererService;
     private final UserService userService;
     private final ApplicationEventPublisher applicationEventPublisher;
+
+    @Autowired
+    public OrderController(OrderService orderService, DelivererService delivererService, UserService userService,
+                           ApplicationEventPublisher applicationEventPublisher) {
+        this.orderService = orderService;
+        this.delivererService = delivererService;
+        this.userService = userService;
+        this.applicationEventPublisher = applicationEventPublisher;
+    }
 
     @GetMapping
     public List<OrderDTO> get() {

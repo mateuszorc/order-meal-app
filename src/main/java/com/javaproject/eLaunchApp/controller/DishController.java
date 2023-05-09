@@ -4,6 +4,7 @@ import com.javaproject.eLaunchApp.DTO.DelivererDTO;
 import com.javaproject.eLaunchApp.DTO.DishDTO;
 import com.javaproject.eLaunchApp.service.DelivererService;
 import com.javaproject.eLaunchApp.service.DishService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,11 @@ import java.util.UUID;
 public class DishController {
 
     private final DishService dishService;
+
+    @Autowired
+    public DishController(DishService dishService) {
+        this.dishService = dishService;
+    }
 
     @GetMapping
     public List<DishDTO> get() {
