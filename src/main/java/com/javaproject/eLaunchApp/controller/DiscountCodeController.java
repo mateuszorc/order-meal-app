@@ -1,9 +1,9 @@
 package com.javaproject.eLaunchApp.controller;
 
 import com.javaproject.eLaunchApp.DTO.DelivererDTO;
-import com.javaproject.eLaunchApp.DTO.DeliveryAddressDTO;
+import com.javaproject.eLaunchApp.DTO.DiscountCodeDTO;
 import com.javaproject.eLaunchApp.service.DelivererService;
-import com.javaproject.eLaunchApp.service.DeliveryAddressService;
+import com.javaproject.eLaunchApp.service.DiscountCodeService;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -12,24 +12,24 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(params = "/api/delivery-addresses", produces = MediaType.APPLICATION_JSON_VALUE)
-public class DeliveryAddressController {
+@RequestMapping(params = "/api/discount-codes", produces = MediaType.APPLICATION_JSON_VALUE)
+public class DiscountCodeController {
 
-    private final DeliveryAddressService deliveryAddressService;
+    private final DiscountCodeService discountCodeService;
 
     @GetMapping
-    public List<DeliveryAddressDTO> get() {
+    public List<DiscountCodeDTO> get() {
         return null;
     }
 
     @GetMapping("/{uuid}")
-    public DeliveryAddressDTO get(@PathVariable UUID uuid) {
+    public DiscountCodeDTO get(@PathVariable UUID uuid) {
         return null;
     }
 
     @Transactional
     @PutMapping("/{uuid}")
-    public  void put(@PathVariable UUID uuid, @RequestBody DeliveryAddressDTO deliveryAddressDTO) {
+    public  void put(@PathVariable UUID uuid, @RequestBody DiscountCodeDTO delivererDTO) {
         return;
     }
 
