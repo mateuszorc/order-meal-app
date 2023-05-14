@@ -51,6 +51,22 @@ public class OrderController {
         return orderService.getAll();
     }
 
+    @JsonView(OrderListView.class)
+    @GetMapping(params = {"user"})
+    public List<OrderDTO> getByUser(@RequestParam("user") UUID userUuid) {
+        UserDTO user = userService.getByUuid(userUuid)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return user.getOrderDTOS();
+    }
+
+    @JsonView(OrderListView.class)
+    @GetMapping(params = {"deliverer"})
+    public List<OrderDTO> getByDeliverer(@RequestParam("delivererUuid") UUID delivererUuid) {
+        DelivererDTO deliverer = delivererService.getByUuid(delivererUuid)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return deliverer.getOrders();
+    }
+
     @JsonView(OrderView.class)
     @GetMapping("/{uuid}")
     public OrderDTO get(@PathVariable UUID uuid) {
@@ -69,5 +85,28 @@ public class OrderController {
     @DeleteMapping("/{uuid}")
     public  void delete(@PathVariable UUID uuid) {
         orderService.delete(uuid);
+    }
+
+    @Transactional
+    @Validated(OrderStatusValidation.class)
+    @PatchMapping("/{uuid}/paid")
+    public void patchIsPaid(@PathVariable UUID uuid) {
+        OrderDTO orderDTO = orderService.getByUuid(uuid)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        orderService.setIsPaid(orderDTO);
+    }
+
+    @Transactional
+    @Validated(GiveOutValidation.class)
+    @PatchMapping("/{uuid}/given-out")
+    public void patchIsGivenOut(@PathVariable UUID uuid, @RequestBody @Valid OrderStatusDTO orderStatusDTO) {
+        orderService.setIsGivedOut(uuid, orderStatusDTO);
+    }
+
+    @Transactional
+    @Validated(DeliveryValidation.class)
+    @PatchMapping("/{uuid}/delivered")
+    public void patchIsPDelivered(@PathVariable UUID uuid, @RequestBody @Valid OrderStatusDTO orderStatusDTO) {
+        orderService.setIsDelivered(uuid, orderStatusDTO);
     }
 }

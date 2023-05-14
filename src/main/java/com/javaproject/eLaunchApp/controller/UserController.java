@@ -63,4 +63,19 @@ public class UserController {
     public  void delete(@PathVariable UUID uuid) {
         userService.delete(uuid);
     }
+
+    @Transactional
+    @Validated(NewOperationValidation.class)
+    @PostMapping("/{uuid}/new-operation")
+    public void postOperation(@RequestParam UUID uuid, @RequestBody @Valid UserDTO userDTO) {
+        userService.validateNewOperation(uuid, userDTO);
+    }
+
+    @JsonView(UserView.class)
+    @GetMapping("/{uuid}/delivery-addresses")
+    public List<DeliveryAddressDTO> getUserAddresses(@PathVariable UUID uuid) {
+        UserDTO userDTO = userService.getByUuid(uuid)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return userDTO.getAddresses();
+    }
 }

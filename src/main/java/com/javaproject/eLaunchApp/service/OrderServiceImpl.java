@@ -62,12 +62,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void setIsGivedOut(OrderDTO orderDTO, OrderStatusDTO orderStatusDTO) {
+    public void setIsGivedOut(UUID uuid, OrderStatusDTO orderStatusDTO) {
 
     }
 
     @Override
-    public void setIsDelivered(OrderDTO orderDTO, OrderStatusDTO orderStatusDTO) {
+    public void setIsDelivered(UUID uuid, OrderStatusDTO orderStatusDTO) {
 
     }
 
