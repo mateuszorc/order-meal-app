@@ -1,15 +1,13 @@
 package com.javaproject.eLaunchApp.DTO;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.javaproject.eLaunchApp.models.Order;
 import com.javaproject.eLaunchApp.models.User;
 import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
@@ -20,6 +18,9 @@ public class OrderDTO {
         public interface Extended extends Basic {}
     }
 
+    public interface OrderValidation {}
+    public interface OrderStatusValidation {}
+
 
     @JsonView(View.Basic.class)
     @NotNull
@@ -28,11 +29,12 @@ public class OrderDTO {
     @JsonView(View.Extended.class)
     @Digits(integer = 10, fraction = 2)
     @Min(0)
-    @NotNull
+    @Null(groups = OrderValidation.class)
     private BigDecimal nettoPrice;
 
     @JsonView(View.Extended.class)
     @Digits(integer = 10, fraction = 2)
+    @Min(0)
     @NotNull
     private BigDecimal bruttoPrice;
 
@@ -56,6 +58,8 @@ public class OrderDTO {
 
     @JsonView(View.Basic.class)
     @Embedded
+    @Null(groups = OrderValidation.class)
+    @NotNull(groups = OrderStatusValidation.class)
     private OrderStatusDTO orderStatusDTO;
 
     @JsonView(View.Extended.class)

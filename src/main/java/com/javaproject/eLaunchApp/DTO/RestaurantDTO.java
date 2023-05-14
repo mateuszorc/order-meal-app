@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.javaproject.eLaunchApp.models.enums.Archive;
 import net.karneim.pojobuilder.GeneratePojoBuilder;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.UUID;
@@ -19,6 +21,7 @@ public class RestaurantDTO {
         public interface Basic extends Id {}
         public interface Extended extends Basic {}
     }
+    public interface DataUpdateValidation {}
 
 
     @JsonView(View.Id.class)
@@ -45,11 +48,13 @@ public class RestaurantDTO {
     private List<OpenTimeDTO> openTimeDTOS;
 
     @JsonView(View.Extended.class)
-    @NotNull
+    @Nullable
+    @Null(groups = DataUpdateValidation.class)
     private List<OrderDTO> orderDTOS;
 
     @JsonView(View.Extended.class)
-    @NotNull
+    @Nullable
+    @Null(groups = DataUpdateValidation.class)
     private List<MenuItemDTO> menuItemDTOS;
 
     @JsonIgnore

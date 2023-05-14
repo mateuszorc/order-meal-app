@@ -7,6 +7,8 @@ import net.karneim.pojobuilder.GeneratePojoBuilder;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,6 +19,8 @@ public class UserDTO {
         public interface Basic extends Id {}
         public interface Extended extends Basic {}
     }
+    public interface DataUpdateValidation {}
+    public interface NewOperationValidation {}
 
 
     @JsonView(View.Id.class)
@@ -37,10 +41,13 @@ public class UserDTO {
 
     @JsonIgnore
     @Nullable
+    @Null(groups = DataUpdateValidation.class)
     private List<OrderDTO> orderDTOS;
 
     @JsonView(View.Extended.class)
     @NotNull
+    @Size(max = 0, groups = DataUpdateValidation.class)
+    @Size(min = 1, max = 1, groups = NewOperationValidation.class)
     private List<OperationEvidenceDTO> operationEvidences;
 
     @JsonView(View.Extended.class)

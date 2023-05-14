@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Null;
 import java.util.List;
 
 @GeneratePojoBuilder
@@ -18,8 +19,11 @@ public class DelivererDTO extends EmployeeDTO {
         public interface Extended extends Basic, EmployeeDTO.View.Basic {}
     }
 
+    public interface NewDelivererValidation {}
+
     @JsonView(View.Extended.class)
     @Nullable
+    @Null(groups = NewDelivererValidation.class)
     private List<OrderDTO> orderDTOS;
 
     @Nullable

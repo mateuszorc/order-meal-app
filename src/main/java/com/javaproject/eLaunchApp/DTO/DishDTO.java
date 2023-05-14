@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,6 +18,7 @@ public class DishDTO {
         public interface Basic{}
         public interface Extended extends Basic{}
     }
+    public interface DataUpdateValidation {}
 
     @JsonView(View.Basic.class)
     @NotNull
@@ -33,6 +35,7 @@ public class DishDTO {
 
     @JsonView(View.Extended.class)
     @Nullable
+    @Null(groups = DataUpdateValidation.class)
     private List<MenuItemDTO> menuItemDTOS;
 
     public UUID getUuid() {

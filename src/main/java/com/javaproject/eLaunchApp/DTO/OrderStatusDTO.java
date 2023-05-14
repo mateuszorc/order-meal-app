@@ -3,6 +3,7 @@ package com.javaproject.eLaunchApp.DTO;
 import com.fasterxml.jackson.annotation.JsonView;
 import net.karneim.pojobuilder.GeneratePojoBuilder;
 
+import javax.annotation.Nullable;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
@@ -13,6 +14,8 @@ public class OrderStatusDTO {
     public static class View{
         public interface Basic{}
     }
+    public interface GiveOutStatusValidation {}
+    public interface DeliveryValidation {}
 
 
     @JsonView(View.Basic.class)
@@ -24,11 +27,13 @@ public class OrderStatusDTO {
     private Boolean isPaid;
 
     @JsonView(View.Basic.class)
-    @NotNull
+    @NotNull(groups = GiveOutStatusValidation.class)
+    @Nullable
     private Instant giveOutTime;
 
     @JsonView(View.Basic.class)
-    @NotNull
+    @NotNull(groups = DeliveryValidation.class)
+    @Nullable
     private Instant deliveryTime;
 
     public Instant getOrderTime() {

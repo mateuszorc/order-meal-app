@@ -7,16 +7,21 @@ import com.javaproject.eLaunchApp.service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.groups.Default;
 import java.util.List;
 import java.util.UUID;
 
+@Validated
 @RestController
 @RequestMapping(params = "/api/dishes", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DishController {
 
     private final DishService dishService;
+
+    interface DishDataUpdateValidation extends Default, DishDTO.DataUpdateValidation {}
 
     @Autowired
     public DishController(DishService dishService) {
@@ -34,6 +39,7 @@ public class DishController {
     }
 
     @Transactional
+    @Validated(DishDTO.DataUpdateValidation.class)
     @PutMapping("/{uuid}")
     public  void put(@PathVariable UUID uuid, @RequestBody DishDTO dishDTO) {
         return;
