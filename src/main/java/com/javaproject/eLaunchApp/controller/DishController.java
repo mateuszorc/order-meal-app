@@ -1,15 +1,18 @@
 package com.javaproject.eLaunchApp.controller;
 
-import com.javaproject.eLaunchApp.DTO.DelivererDTO;
-import com.javaproject.eLaunchApp.DTO.DishDTO;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.javaproject.eLaunchApp.DTO.*;
 import com.javaproject.eLaunchApp.service.DelivererService;
 import com.javaproject.eLaunchApp.service.DishService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import javax.validation.groups.Default;
 import java.util.List;
 import java.util.UUID;
@@ -18,6 +21,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping(params = "/api/dishes", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DishController {
+    interface DishListView extends DishDTO.View.Basic {}
+    interface DishView extends DishDTO.View.Extended, ProductDTO.View.Extended, MenuItemDTO.View.Basic {}
 
     private final DishService dishService;
 
@@ -28,26 +33,29 @@ public class DishController {
         this.dishService = dishService;
     }
 
+    @JsonView(DishDataUpdateValidation.class)
     @GetMapping
     public List<DishDTO> get() {
-        return null;
+        return dishService.getAll();
     }
 
+    @JsonView(DishDataUpdateValidation.class)
     @GetMapping("/{uuid}")
     public DishDTO get(@PathVariable UUID uuid) {
-        return null;
+        return dishService.getByUuid(uuid)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @Transactional
     @Validated(DishDTO.DataUpdateValidation.class)
     @PutMapping("/{uuid}")
-    public  void put(@PathVariable UUID uuid, @RequestBody DishDTO dishDTO) {
-        return;
+    public  void put(@PathVariable UUID uuid, @RequestBody @Valid DishDTO dishDTO) {
+        dishService.put(uuid, dishDTO);
     }
 
     @Transactional
     @DeleteMapping("/{uuid}")
     public  void delete(@PathVariable UUID uuid) {
-        return;
+        dishService.delete(uuid);
     }
 }

@@ -1,18 +1,20 @@
 package com.javaproject.eLaunchApp.controller;
 
-import com.javaproject.eLaunchApp.DTO.DelivererDTO;
-import com.javaproject.eLaunchApp.DTO.OrderDTO;
-import com.javaproject.eLaunchApp.DTO.OrderStatusDTO;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.javaproject.eLaunchApp.DTO.*;
 import com.javaproject.eLaunchApp.service.DelivererService;
 import com.javaproject.eLaunchApp.service.OrderService;
 import com.javaproject.eLaunchApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import javax.validation.groups.Default;
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +23,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping(params = "/api/orders", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OrderController {
+    interface OrderListView extends OrderDTO.View.Basic, UserDTO.View.Id, DelivererDTO.View.Id, RestaurantDTO.View.Id {}
+    interface OrderView extends OrderDTO.View.Extended, UserDTO.View.Id, DelivererDTO.View.Id, RestaurantDTO.View.Id {}
 
     private final OrderService orderService;
     private final DelivererService delivererService;
@@ -41,26 +45,29 @@ public class OrderController {
         this.applicationEventPublisher = applicationEventPublisher;
     }
 
+    @JsonView(OrderListView.class)
     @GetMapping
     public List<OrderDTO> get() {
-        return null;
+        return orderService.getAll();
     }
 
+    @JsonView(OrderView.class)
     @GetMapping("/{uuid}")
     public OrderDTO get(@PathVariable UUID uuid) {
-        return null;
+        return orderService.getByUuid(uuid)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @Transactional
     @Validated(OrderDataUpdateValidation.class)
     @PutMapping("/{uuid}")
-    public  void put(@PathVariable UUID uuid, @RequestBody OrderDTO orderDTO) {
-        return;
+    public  void put(@PathVariable UUID uuid, @RequestBody @Valid OrderDTO orderDTO) {
+        orderService.put(uuid, orderDTO);
     }
 
     @Transactional
     @DeleteMapping("/{uuid}")
     public  void delete(@PathVariable UUID uuid) {
-        return;
+        orderService.delete(uuid);
     }
 }

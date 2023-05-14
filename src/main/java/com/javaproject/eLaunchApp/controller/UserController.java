@@ -1,14 +1,18 @@
 package com.javaproject.eLaunchApp.controller;
 
-import com.javaproject.eLaunchApp.DTO.UserDTO;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.javaproject.eLaunchApp.DTO.*;
 import com.javaproject.eLaunchApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import javax.validation.groups.Default;
 import java.util.List;
 import java.util.UUID;
@@ -17,12 +21,16 @@ import java.util.UUID;
 @RestController
 @RequestMapping(params = "/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
+    interface UserListView extends UserDTO.View.Basic, PersonalDataDTO.View.Basic {}
+    interface UserView extends UserDTO.View.Extended, PersonalDataDTO.View.Extended, LoginDataDTO.View.Basic,
+            DeliveryAddressDTO.View.Basic, OperationEvidenceDTO.View.Extended, DiscountCodeDTO.View.Extended {}
+
+    interface DataUpdateValidation extends Default, UserDTO.DataUpdateValidation {}
+    interface NewOperationValidation extends Default, UserDTO.NewOperationValidation {}
 
     private final UserService userService;
     private final ApplicationEventPublisher applicationEventPublisher;
 
-    interface DataUpdateValidation extends Default, UserDTO.DataUpdateValidation {}
-    interface NewOperationValidation extends Default, UserDTO.NewOperationValidation {}
 
     @Autowired
     public UserController(UserService userService, ApplicationEventPublisher applicationEventPublisher) {
@@ -30,26 +38,29 @@ public class UserController {
         this.applicationEventPublisher = applicationEventPublisher;
     }
 
+    @JsonView(UserListView.class)
     @GetMapping
     public List<UserDTO> get() {
-        return null;
+        return userService.getAll();
     }
 
+    @JsonView(UserView.class)
     @GetMapping("/{uuid}")
     public UserDTO get(@PathVariable UUID uuid) {
-        return null;
+        return userService.getByUuid(uuid)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @Transactional
     @Validated(DataUpdateValidation.class)
     @PutMapping("/{uuid}")
-    public  void put(@PathVariable UUID uuid, @RequestBody UserDTO userDTO) {
-        return;
+    public  void put(@PathVariable UUID uuid, @RequestBody @Valid UserDTO userDTO) {
+        userService.put(uuid, userDTO);
     }
 
     @Transactional
     @DeleteMapping("/{uuid}")
     public  void delete(@PathVariable UUID uuid) {
-        return;
+        userService.delete(uuid);
     }
 }

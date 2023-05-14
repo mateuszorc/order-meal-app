@@ -15,8 +15,9 @@ import java.util.UUID;
 public class DishDTO {
 
     public static class View{
-        public interface Basic{}
-        public interface Extended extends Basic{}
+        public interface Id {}
+        public interface Basic extends Id {}
+        public interface Extended extends Basic {}
     }
     public interface DataUpdateValidation {}
 
