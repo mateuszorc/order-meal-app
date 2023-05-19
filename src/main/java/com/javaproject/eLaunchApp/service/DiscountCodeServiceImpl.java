@@ -2,13 +2,20 @@ package com.javaproject.eLaunchApp.service;
 
 import com.javaproject.eLaunchApp.DTO.DelivererDTO;
 import com.javaproject.eLaunchApp.DTO.DiscountCodeDTO;
+import com.javaproject.eLaunchApp.models.Deliverer;
+import com.javaproject.eLaunchApp.models.DeliveryAddress;
+import com.javaproject.eLaunchApp.models.DiscountCode;
 import com.javaproject.eLaunchApp.repository.*;
+import com.javaproject.eLaunchApp.utils.ConvertUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class DiscountCodeServiceImpl implements DiscountCodeService {
@@ -26,21 +33,28 @@ public class DiscountCodeServiceImpl implements DiscountCodeService {
 
     @Override
     public List<DiscountCodeDTO> getAll() {
-        return null;
+        return discountCodeRepo.findAll()
+                .stream()
+                .map(ConvertUtils::convert)
+                .collect(Collectors.toList());
     }
 
     @Override
     public void put(UUID uuid, DiscountCodeDTO discountCodeDTO) {
-
+        DiscountCode discountCode= discountCodeRepo.findByUuid(uuid)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        discountCodeRepo.delete(discountCode);
     }
 
     @Override
     public void delete(UUID uuid) {
-
+        DiscountCode discountCode = discountCodeRepo.findByUuid(uuid)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        discountCodeRepo.delete(discountCode);
     }
 
     @Override
     public Optional<DiscountCodeDTO> getByUuid(UUID uuid) {
-        return Optional.empty();
+        return discountCodeRepo.findByUuid(uuid).map(ConvertUtils::convert);
     }
 }
