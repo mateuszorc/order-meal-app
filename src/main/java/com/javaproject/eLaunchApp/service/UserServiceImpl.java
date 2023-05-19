@@ -1,5 +1,6 @@
 package com.javaproject.eLaunchApp.service;
 
+import com.google.common.base.Objects;
 import com.javaproject.eLaunchApp.DTO.UserDTO;
 import com.javaproject.eLaunchApp.models.DiscountCode;
 import com.javaproject.eLaunchApp.models.User;
@@ -53,6 +54,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void validateNewOperation(UUID uuid, UserDTO userDTO) {
+        if(!Objects.equal(userDTO.getUuid(), uuid)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
 
+        userRepo.findByUuid(userDTO.getUuid())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 }
