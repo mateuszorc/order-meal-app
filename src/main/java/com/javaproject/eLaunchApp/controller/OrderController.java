@@ -2,6 +2,7 @@ package com.javaproject.eLaunchApp.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.javaproject.eLaunchApp.DTO.*;
+import com.javaproject.eLaunchApp.events.OperationEvidenceCreator;
 import com.javaproject.eLaunchApp.service.DelivererService;
 import com.javaproject.eLaunchApp.service.OrderService;
 import com.javaproject.eLaunchApp.service.UserService;
@@ -94,6 +95,10 @@ public class OrderController {
         OrderDTO orderDTO = orderService.getByUuid(uuid)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         orderService.setIsPaid(orderDTO);
+
+        OperationEvidenceCreator operationEvidenceCreator =
+                new OperationEvidenceCreator(this, orderService.newOperationForPaidOrder(orderDTO));
+        applicationEventPublisher.publishEvent(operationEvidenceCreator);
     }
 
     @Transactional

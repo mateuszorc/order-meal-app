@@ -1,11 +1,9 @@
 package com.javaproject.eLaunchApp.service;
 
 import com.google.common.base.Objects;
-import com.javaproject.eLaunchApp.DTO.OrderDTO;
-import com.javaproject.eLaunchApp.DTO.OrderItemDTO;
-import com.javaproject.eLaunchApp.DTO.OrderStatusDTO;
-import com.javaproject.eLaunchApp.DTO.UserDTO;
+import com.javaproject.eLaunchApp.DTO.*;
 import com.javaproject.eLaunchApp.models.*;
+import com.javaproject.eLaunchApp.models.enums.EvidenceType;
 import com.javaproject.eLaunchApp.models.enums.PriceType;
 import com.javaproject.eLaunchApp.repository.*;
 import com.javaproject.eLaunchApp.utils.ConvertUtils;
@@ -235,6 +233,19 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public UserDTO newOperationForPaidOrder(OrderDTO orderDTO) {
-        return null;
+        User user = userRepo.findByUuid(orderDTO.getUser().getUuid())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        UserDTO userDTO = ConvertUtils.convert(user);
+        userDTO.setOperationEvidences(List.of(newEvidenceForOrderPayment(orderDTO)));
+        return userDTO;
+    }
+
+    private OperationEvidenceDTO newEvidenceForOrderPayment(OrderDTO orderDTO) {
+        return new OperationEvidenceDTOBuilder()
+                .withDate(Instant.now())
+                .withUser(orderDTO.getUser())
+                .withAmount(orderDTO.getAmountToPayBrutto())
+                .withType(EvidenceType.PAYMENT)
+                .build();
     }
 }

@@ -2,6 +2,8 @@ package com.javaproject.eLaunchApp.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.javaproject.eLaunchApp.DTO.*;
+import com.javaproject.eLaunchApp.events.OperationEvidenceCreator;
+import com.javaproject.eLaunchApp.listeners.OperationEvidenceListener;
 import com.javaproject.eLaunchApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -69,6 +71,9 @@ public class UserController {
     @PostMapping("/{uuid}/new-operation")
     public void postOperation(@RequestParam UUID uuid, @RequestBody @Valid UserDTO userDTO) {
         userService.validateNewOperation(uuid, userDTO);
+
+        OperationEvidenceCreator operationEvidenceCreator = new OperationEvidenceCreator(this, userDTO);
+        applicationEventPublisher.publishEvent(operationEvidenceCreator);
     }
 
     @JsonView(UserView.class)
