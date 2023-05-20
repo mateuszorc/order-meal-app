@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(params = "/api/discount-codes", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/discount-codes", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DiscountCodeController {
     interface DiscountCodeListView extends DiscountCodeDTO.View.Basic, PeriodDTO.View.Basic {}
     interface DiscountCodeView extends DiscountCodeDTO.View.Extended, PeriodDTO.View.Basic {}

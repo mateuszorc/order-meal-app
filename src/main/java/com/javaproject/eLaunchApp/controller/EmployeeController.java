@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(params = "/api/demployees", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/demployees", produces = MediaType.APPLICATION_JSON_VALUE)
 public class EmployeeController {
     interface EmployeeListView extends EmployeeDTO.View.Basic, PersonalDataDTO.View.Basic {}
     interface EmployeeView extends EmployeeDTO.View.Extended, PersonalDataDTO.View.Extended, LoginDataDTO.View.Basic {}

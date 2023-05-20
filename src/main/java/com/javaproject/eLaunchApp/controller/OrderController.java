@@ -21,7 +21,7 @@ import java.util.UUID;
 
 @Validated
 @RestController
-@RequestMapping(params = "/api/orders", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/orders", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OrderController {
     interface OrderListView extends OrderDTO.View.Basic, UserDTO.View.Id, DelivererDTO.View.Id, RestaurantDTO.View.Id {}
     interface OrderView extends OrderDTO.View.Extended, UserDTO.View.Id, DelivererDTO.View.Id, RestaurantDTO.View.Id {}

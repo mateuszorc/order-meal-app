@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @Validated
 @RestController
-@RequestMapping(params = "/api/dishes", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/dishes", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DishController {
     interface DishListView extends DishDTO.View.Basic {}
     interface DishView extends DishDTO.View.Extended, ProductDTO.View.Extended, MenuItemDTO.View.Basic {}

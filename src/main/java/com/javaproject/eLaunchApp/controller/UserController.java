@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @Validated
 @RestController
-@RequestMapping(params = "/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
     interface UserListView extends UserDTO.View.Basic, PersonalDataDTO.View.Basic {}
     interface UserView extends UserDTO.View.Extended, PersonalDataDTO.View.Extended, LoginDataDTO.View.Basic,

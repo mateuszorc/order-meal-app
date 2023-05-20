@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @Validated
 @RestController
-@RequestMapping(params = "/api/restaurants", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/restaurants", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantController {
     interface RestaurantListView extends RestaurantDTO.View.Basic {}
     interface RestaurantView extends RestaurantDTO.View.Extended, LoginDataDTO.View.Basic, CompanyDataDTO.View.Extended, OpenTimeDTO.View.Extended {}

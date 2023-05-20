@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(params = "/api/delivery-addresses", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/delivery-addresses", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DeliveryAddressController {
     interface DeliveryAddressListView extends DeliveryAddressDTO.View.Basic, UserDTO.View.Id {}
     interface DeliveryAddressView extends DeliveryAddressDTO.View.Extended, UserDTO.View.Id {}

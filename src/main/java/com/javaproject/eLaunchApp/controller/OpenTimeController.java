@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(params = "/api/open-times", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/open-times", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OpenTimeController {
     interface OpenTimeListView extends OpenTimeDTO.View.Basic {}
     interface OpenTimeView extends OpenTimeDTO.View.Extended, RestaurantDTO.View.Id {}

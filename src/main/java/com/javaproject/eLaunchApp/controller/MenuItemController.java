@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(params = "/api/menu-items", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/menu-items", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MenuItemController {
     interface MenuItemListView extends MenuItemDTO.View.Basic, RestaurantDTO.View.Id {}
     interface MenuItemView extends MenuItemDTO.View.Extended, RestaurantDTO.View.Id, DishDTO.View.Id {}

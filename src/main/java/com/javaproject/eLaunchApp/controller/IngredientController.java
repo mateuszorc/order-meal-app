@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(params = "/api/dingredients", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/dingredients", produces = MediaType.APPLICATION_JSON_VALUE)
 public class IngredientController {
     interface IngredientListView extends IngredientDTO.View.Basic {}
     interface IngredientView extends IngredientListView {}

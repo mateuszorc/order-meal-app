@@ -21,7 +21,7 @@ import java.util.UUID;
 
 @Validated
 @RestController
-@RequestMapping(params = "/api/deliverers", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/deliverers", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DelivererController {
     interface DelivererListView extends DelivererDTO.View.Basic, PersonalDataDTO.View.Basic {}
     interface DelivererView extends DelivererDTO.View.Extended, PersonalDataDTO.View.Extended, LoginDataDTO.View.Basic, OrderDTO.View.Extended {}
