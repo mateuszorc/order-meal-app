@@ -118,7 +118,7 @@ public class ConvertUtils {
                 .withOrderItems(convertOrderItemDTOS(order.getOrderItems()))
                 .withRestaurantDTO(convert(order.getRestaurant()))
                 .withDelivererDTO(convert(order.getDeliverer()))
-                .withUser(order.getUser())
+                .withUser(convert(order.getUser()))
                 .build();
     }
 

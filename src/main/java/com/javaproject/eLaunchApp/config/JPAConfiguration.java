@@ -27,7 +27,8 @@ public class JPAConfiguration {
     public DataSource getDataSource() {
         DataSourceBuilder<?>  dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("com.mysql.cj.jdbc.Driver");
-        dataSourceBuilder.url("jdbc:mysql://localhost:3306/elaunchapp");
+        dataSourceBuilder.url("jdbc:mysql://localhost:3306/elaunchapp?useUnicode=true&characterEncoding=utf8&" +
+                "useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true");
         dataSourceBuilder.username("elunchapp");
         dataSourceBuilder.password("Qwerty1998!!");
         return dataSourceBuilder.build();
