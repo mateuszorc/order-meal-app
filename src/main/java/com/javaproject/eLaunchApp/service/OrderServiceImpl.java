@@ -28,19 +28,21 @@ public class OrderServiceImpl implements OrderService {
     private final UserRepo userRepo;
     private final RestaurantRepo restaurantRepo;
     private final DelivererRepo delivererRepo;
+    private final DeliveryAddressRepo deliveryAddressRepo;
     private final MenuItemRepo menuItemRepo;
     private final DiscountCodeRepo discountCodeRepo;
     private final OrderItemRepo orderItemRepo;
-    private final OrderItemServiceImpl orderItemService;
+    private final OrderItemService orderItemService;
 
     @Autowired
     public OrderServiceImpl(OrderRepo orderRepo, UserRepo userRepo, RestaurantRepo restaurantRepo,
-                            DelivererRepo delivererRepo, MenuItemRepo menuItemRepo, DiscountCodeRepo discountCodeRepo,
-                            OrderItemRepo orderItemRepo, OrderItemServiceImpl orderItemService) {
+                            DelivererRepo delivererRepo, DeliveryAddressRepo deliveryAddressRepo, MenuItemRepo menuItemRepo, DiscountCodeRepo discountCodeRepo,
+                            OrderItemRepo orderItemRepo, OrderItemService orderItemService) {
         this.orderRepo = orderRepo;
         this.userRepo = userRepo;
         this.restaurantRepo = restaurantRepo;
         this.delivererRepo = delivererRepo;
+        this.deliveryAddressRepo = deliveryAddressRepo;
         this.menuItemRepo = menuItemRepo;
         this.discountCodeRepo = discountCodeRepo;
         this.orderItemRepo = orderItemRepo;
