@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 import com.javaproject.eLaunchApp.DTO.UserDTO;
 import com.javaproject.eLaunchApp.models.DiscountCode;
 import com.javaproject.eLaunchApp.models.User;
+import com.javaproject.eLaunchApp.models.UserBuilder;
 import com.javaproject.eLaunchApp.repository.*;
 import com.javaproject.eLaunchApp.utils.ConvertUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import static com.javaproject.eLaunchApp.utils.ConvertUtils.convert;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -37,7 +40,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void put(UUID uuid, UserDTO userDTO) {
+        if (!Objects.equal(userDTO.getUuid(), uuid)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
 
+        User user = userRepo.findByUuid(userDTO.getUuid())
+                .orElseGet(() -> newUser(uuid));
+
+        user.setPersonalData(convert(userDTO.getPersonalData()));
+        user.setLoginData(convert(userDTO.getLoginData()));
+        user.setArchive(userDTO.getArchive());
+
+        if (user.getId() == null) {
+            userRepo.save(user);
+        }
     }
 
     @Override
@@ -60,5 +76,11 @@ public class UserServiceImpl implements UserService {
 
         userRepo.findByUuid(userDTO.getUuid())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    private User newUser(UUID uuid) {
+        return new UserBuilder()
+                .withUuid(uuid)
+                .build();
     }
 }

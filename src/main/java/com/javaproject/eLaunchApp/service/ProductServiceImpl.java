@@ -1,8 +1,9 @@
 package com.javaproject.eLaunchApp.service;
 
+import com.google.common.base.Objects;
+import com.javaproject.eLaunchApp.DTO.IngredientDTO;
 import com.javaproject.eLaunchApp.DTO.ProductDTO;
-import com.javaproject.eLaunchApp.models.DiscountCode;
-import com.javaproject.eLaunchApp.models.Product;
+import com.javaproject.eLaunchApp.models.*;
 import com.javaproject.eLaunchApp.repository.*;
 import com.javaproject.eLaunchApp.utils.ConvertUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -40,7 +42,34 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void put(UUID uuid, ProductDTO productDTO) {
+        if (!Objects.equal(productDTO.getUuid(), uuid)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
 
+        List<Ingredient> ingredients = new ArrayList<>();
+        for (IngredientDTO p : productDTO.getIngredients()) {
+            Ingredient ingredient = ingredientRepo.findByUuid(p.getUuid())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+            ingredients.add(ingredient);
+        }
+
+        Product product = productRepo.findByUuid(productDTO.getUuid())
+                .orElseGet(() -> newProduct(uuid));
+
+        product.setName(productDTO.getName());
+        product.setIngredients(ingredients);
+
+        if (productDTO.getDish() != null) {
+            Dish dish = dishRepo.findByUuid(productDTO.getDish().getUuid())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+            product.setDish(dish);
+        } else {
+            product.setDish(null);
+        }
+
+        if (product.getId() == null) {
+            productRepo.save(product);
+        }
     }
 
     @Override
@@ -53,5 +82,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Optional<ProductDTO> getByUuid(UUID uuid) {
         return productRepo.findByUuid(uuid).map(ConvertUtils::convert);
+    }
+
+    private Product newProduct(UUID uuid) {
+        return new ProductBuilder()
+                .withUuid(uuid)
+                .build();
     }
 }

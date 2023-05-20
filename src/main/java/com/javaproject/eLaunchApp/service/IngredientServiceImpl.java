@@ -1,9 +1,11 @@
 package com.javaproject.eLaunchApp.service;
 
+import com.google.common.base.Objects;
 import com.javaproject.eLaunchApp.DTO.DelivererDTO;
 import com.javaproject.eLaunchApp.DTO.IngredientDTO;
 import com.javaproject.eLaunchApp.models.DiscountCode;
 import com.javaproject.eLaunchApp.models.Ingredient;
+import com.javaproject.eLaunchApp.models.IngredientBuilder;
 import com.javaproject.eLaunchApp.repository.DelivererRepo;
 import com.javaproject.eLaunchApp.repository.IngredientRepo;
 import com.javaproject.eLaunchApp.repository.OrderRepo;
@@ -37,7 +39,18 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public void put(UUID uuid, IngredientDTO ingredientDTO) {
+        if (!Objects.equal(ingredientDTO.getUuid(), uuid)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        Ingredient ingredient = ingredientRepo.findByUuid(ingredientDTO.getUuid())
+                .orElseGet(() -> newIngredient(uuid));
 
+        ingredient.setName(ingredientDTO.getName());
+        ingredient.setAllergen(ingredientDTO.getAllergen());
+
+        if (ingredient.getId() == null) {
+            ingredientRepo.save(ingredient);
+        }
     }
 
     @Override
@@ -50,5 +63,11 @@ public class IngredientServiceImpl implements IngredientService {
     @Override
     public Optional<IngredientDTO> getByUuid(UUID uuid) {
         return ingredientRepo.findByUuid(uuid).map(ConvertUtils::convert);
+    }
+
+    private Ingredient newIngredient(UUID uuid) {
+        return new IngredientBuilder()
+                .withUuid(uuid)
+                .build();
     }
 }

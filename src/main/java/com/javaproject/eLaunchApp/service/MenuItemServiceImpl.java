@@ -1,9 +1,10 @@
 package com.javaproject.eLaunchApp.service;
 
+import com.google.common.base.Objects;
 import com.javaproject.eLaunchApp.DTO.DelivererDTO;
+import com.javaproject.eLaunchApp.DTO.DishDTO;
 import com.javaproject.eLaunchApp.DTO.MenuItemDTO;
-import com.javaproject.eLaunchApp.models.DiscountCode;
-import com.javaproject.eLaunchApp.models.MenuItem;
+import com.javaproject.eLaunchApp.models.*;
 import com.javaproject.eLaunchApp.repository.*;
 import com.javaproject.eLaunchApp.utils.ConvertUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -41,7 +43,32 @@ public class MenuItemServiceImpl implements MenuItemService {
 
     @Override
     public void put(UUID uuid, MenuItemDTO menuItemDTO) {
+        if (!Objects.equal(menuItemDTO.getUuid(), uuid)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
 
+        Restaurant restaurant = restaurantRepo.findByUuid(menuItemDTO.getRestaurants().getUuid())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        List<Dish> dishes = new ArrayList<>();
+        for (DishDTO d : menuItemDTO.getDishes()) {
+            Dish dish = dishRepo.findByUuid(d.getUuid())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+            dishes.add(dish);
+        }
+
+        MenuItem menuItem = menuItemRepo.findByUuid(menuItemDTO.getUuid())
+                .orElseGet(() -> newMenuItem(uuid, restaurant));
+
+        menuItem.setName(menuItemDTO.getName());
+        menuItem.setNettoPrice(menuItemDTO.getNettoPrice());
+        menuItem.setVatTax(menuItemDTO.getVatTax());
+        menuItem.setBruttoPrice(menuItemDTO.getBruttoPrice());
+        menuItem.setDishes(dishes);
+
+        if (menuItem.getId() == null) {
+            menuItemRepo.save(menuItem);
+        }
     }
 
     @Override
@@ -54,5 +81,12 @@ public class MenuItemServiceImpl implements MenuItemService {
     @Override
     public Optional<MenuItemDTO> getByUuid(UUID uuid) {
         return menuItemRepo.findByUuid(uuid).map(ConvertUtils::convert);
+    }
+
+    private MenuItem newMenuItem(UUID uuid, Restaurant restaurant) {
+        return new MenuItemBuilder()
+                .withUuid(uuid)
+                .withRestaurants(restaurant)
+                .build();
     }
 }
