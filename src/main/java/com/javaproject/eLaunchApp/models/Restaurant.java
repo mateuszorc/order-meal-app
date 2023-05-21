@@ -25,11 +25,11 @@ public class Restaurant {
     @NotNull
     private String name;
 
-    @NotBlank
+    @NotNull
     @Embedded
     private LoginData loginData;
 
-    @NotBlank
+    @NotNull
     @Embedded
     private CompanyData companyData;
 

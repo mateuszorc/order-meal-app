@@ -41,7 +41,7 @@ public class MenuItem {
     private BigDecimal bruttoPrice;
 
     @NotNull
-    @Size(max = 1)
+    @Size(max = 10)
     @ManyToMany
     private List<Dish> dishes;
 

@@ -73,6 +73,9 @@ public class OrderServiceImpl implements OrderService {
         Deliverer deliverer = delivererRepo.findByUuid(orderDTO.getDelivererDTO().getUuid())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 
+        DeliveryAddress deliveryAddress = deliveryAddressRepo.findByUuid(orderDTO.getUuid())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+
         Order order = orderRepo.findByUuid(orderDTO.getUuid())
                 .orElseGet(() -> newOrder(uuid, user, restaurant));
 
@@ -111,6 +114,7 @@ public class OrderServiceImpl implements OrderService {
         order.setDiscountCode(discountCode);
         order.setOrderItems(orderItems);
         order.setDeliverer(deliverer);
+        order.setDeliveryAddress(deliveryAddress);
 
         if (order.getId() == null) {
             orderRepo.save(order);
