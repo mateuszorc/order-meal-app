@@ -6,6 +6,7 @@ import net.karneim.pojobuilder.GeneratePojoBuilder;
 import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,7 +27,7 @@ public class User {
     @Embedded
     private PersonalData personalData;
 
-    @NotNull
+    @Nullable
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DeliveryAddress> addresses;
 

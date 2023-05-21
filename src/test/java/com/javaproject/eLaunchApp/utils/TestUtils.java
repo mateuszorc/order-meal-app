@@ -37,7 +37,7 @@ public class TestUtils {
                 .build();
     }
 
-    public static LoginDataDTO logginDataDTO(String login, String passwrd) {
+    public static LoginDataDTO loginDataDTO(String login, String passwrd) {
         return new LoginDataDTOBuilder()
                 .withLogin(login)
                 .withPassword(passwrd)
@@ -162,7 +162,7 @@ public class TestUtils {
                 .build();
     }
 
-    public static LoginData logginData(String login, String passwrd) {
+    public static LoginData loginData(String login, String passwrd) {
         return new LoginDataBuilder()
                 .withLogin(login)
                 .withPassword(passwrd)
