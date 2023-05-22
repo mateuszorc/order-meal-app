@@ -1,5 +1,6 @@
 package com.javaproject.eLaunchApp.controller;
 
+import com.google.common.truth.Truth8;
 import com.javaproject.eLaunchApp.DTO.DelivererDTO;
 import com.javaproject.eLaunchApp.DTO.DeliveryAddressDTO;
 import com.javaproject.eLaunchApp.config.JPAConfiguration;
@@ -25,6 +26,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
@@ -107,5 +110,30 @@ class DeliveryAddressControllerTest {
         DeliveryAddressDTO deliveryAddressDB = deliveryAddressService.getByUuid(UUID.fromString(STR_UUID))
                 .orElseThrow();
         AssertionUtils.assertEquals(deliveryAddresJson, deliveryAddressDB);
+    }
+
+    @Test
+    @Transactional
+    public void delete() {
+        TransactionStatus transaction = platformTransactionManager.getTransaction(TransactionDefinition.withDefaults());
+        User user = TestUtils.user("d1e1ec67-c05a-4a4a-8d1e-6f22f21b2859",
+                TestUtils.personalData("John", "Smith", Sex.MALE, "888-777-999", "john123@gmail.com")
+                , null,
+                TestUtils.loginData("johnsmith", "dsanmbu#!@$Fasf"), Archive.CURRENT);
+        userRepo.save(user);
+
+        DeliveryAddress deliveryAddres = TestUtils.deliveryAddress(STR_UUID, "My address",
+                "Street", "51", "null", "00-000", "Poznan", null,
+                "Poland", null, user);
+        deliveryAddressRepo.save(deliveryAddres);
+        platformTransactionManager.commit(transaction);
+
+        TransactionStatus transaction2 = platformTransactionManager.getTransaction(TransactionDefinition.withDefaults());
+        deliveryAddressController.delete(UUID.fromString(STR_UUID));
+        platformTransactionManager.commit(transaction2);
+
+        TransactionStatus transaction3 = platformTransactionManager.getTransaction(TransactionDefinition.withDefaults());
+        Truth8.assertThat(deliveryAddressService.getByUuid(UUID.fromString(STR_UUID))).isEmpty();
+        platformTransactionManager.commit(transaction3);
     }
 }

@@ -193,6 +193,11 @@ public class OrderServiceImpl implements OrderService {
     public void delete(UUID uuid) {
         Order order = orderRepo.findByUuid(uuid)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        if (order.getOrderStatus().getPaid()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
         orderRepo.delete(order);
     }
 

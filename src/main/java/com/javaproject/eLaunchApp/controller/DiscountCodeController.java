@@ -50,6 +50,6 @@ public class DiscountCodeController {
     @Transactional
     @DeleteMapping("/{uuid}")
     public  void delete(@PathVariable UUID uuid) {
-        delete(uuid);
+        discountCodeService.delete(uuid);
     }
 }

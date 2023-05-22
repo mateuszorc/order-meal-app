@@ -1,5 +1,6 @@
 package com.javaproject.eLaunchApp.controller;
 
+import com.google.common.truth.Truth8;
 import com.javaproject.eLaunchApp.DTO.DelivererDTO;
 import com.javaproject.eLaunchApp.config.JPAConfiguration;
 import com.javaproject.eLaunchApp.models.Deliverer;
@@ -17,6 +18,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
@@ -83,5 +86,24 @@ class DelivererControllerTest {
         DelivererDTO delivererDB = delivererService.getByUuid(UUID.fromString(STR_UUID))
                 .orElseThrow();
         AssertionUtils.assertEquals(delivererJson, delivererDB);
+    }
+
+    @Test
+    @Transactional
+    public void delete() {
+        TransactionStatus transaction = platformTransactionManager.getTransaction(TransactionDefinition.withDefaults());
+        Deliverer deliverer = TestUtils.deliverer(STR_UUID,
+                TestUtils.personalData("John", "Smith", Sex.MALE, "888-777-999", "john123@gmail.com"),
+                TestUtils.loginData("johnsmith", "dsanmbu#!@$Fasf"), Archive.CURRENT);
+        delivererRepo.save(deliverer);
+        platformTransactionManager.commit(transaction);
+
+        TransactionStatus transaction2 = platformTransactionManager.getTransaction(TransactionDefinition.withDefaults());
+        delivererController.delete(UUID.fromString(STR_UUID));
+        platformTransactionManager.commit(transaction2);
+
+        TransactionStatus transaction3 = platformTransactionManager.getTransaction(TransactionDefinition.withDefaults());
+        Truth8.assertThat(delivererService.getByUuid(UUID.fromString(STR_UUID))).isEmpty();
+        platformTransactionManager.commit(transaction3);
     }
 }

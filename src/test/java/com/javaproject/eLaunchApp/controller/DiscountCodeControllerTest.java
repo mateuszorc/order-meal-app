@@ -1,5 +1,6 @@
 package com.javaproject.eLaunchApp.controller;
 
+import com.google.common.truth.Truth8;
 import com.javaproject.eLaunchApp.DTO.DeliveryAddressDTO;
 import com.javaproject.eLaunchApp.DTO.DiscountCodeDTO;
 import com.javaproject.eLaunchApp.config.JPAConfiguration;
@@ -20,6 +21,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -86,5 +89,23 @@ class DiscountCodeControllerTest {
         DiscountCodeDTO discountCodeDB = discountCodeService.getByUuid(UUID.fromString(STR_UUID))
                 .orElseThrow();
         AssertionUtils.assertEquals(discountCodeJson, discountCodeDB);
+    }
+
+    @Test
+    @Transactional
+    public void delete() {
+        TransactionStatus transaction = platformTransactionManager.getTransaction(TransactionDefinition.withDefaults());
+        DiscountCode discountCode = TestUtils.discountCode(STR_UUID, "BLACK FRIDAY", new BigDecimal("25.00"), DiscountUnit.PERCENT,
+                "2023-05-20T00:00:00", "2024-05-20T00:00:00", null, null);
+        discountCodeRepo.save(discountCode);
+        platformTransactionManager.commit(transaction);
+
+        TransactionStatus transaction2 = platformTransactionManager.getTransaction(TransactionDefinition.withDefaults());
+        discountCodeController.delete(UUID.fromString(STR_UUID));
+        platformTransactionManager.commit(transaction2);
+
+        TransactionStatus transaction3 = platformTransactionManager.getTransaction(TransactionDefinition.withDefaults());
+        Truth8.assertThat(discountCodeService.getByUuid(UUID.fromString(STR_UUID))).isEmpty();
+        platformTransactionManager.commit(transaction3);
     }
 }
